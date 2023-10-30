@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:  
+  rest-server:
+    restart: 'no'
+    ports:
+      - 8017:80
+      - 44317:443
+    environment:
+      HTTPS_PORT: 44317
+      HTTP_PORT: 8017
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_ADDITIONAL_APPSETTINGS: Local
+      DATABASE_CONNECTION_STRING: Host=rest-server-db_dev-local;Database=RestServerDB;Username=root;Password=Localonly123;
+
+  rest-server-db:
+    container_name: rest-server-db_dev-local
+    restart: 'no'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Localonly123
