@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shared;
 
 namespace RestServer.Data
@@ -19,11 +20,7 @@ namespace RestServer.Data
         }
 
 
-        /// <summary>
-        /// Method to add async an account to db
-        /// </summary>
-        /// <param name="account">The content of the account; At the moment just id, username, password</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Account> CreateAccount(Account account)
         {
             EntityEntry<Account> newAccount = await _context.Accounts.AddAsync(account);
@@ -31,5 +28,32 @@ namespace RestServer.Data
             return newAccount.Entity;
         }
 
+        /// <inheritdoc />
+        public async Task<ICollection<Account>> GetAllAccounts()
+        {
+            ICollection<Account> accounts;
+            accounts = await _context.Accounts.ToListAsync();
+            return accounts;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Account>> GetAccountWithUserName(string username)
+        {
+            IEnumerable<Account> account;
+            ICollection<Account> accounts;
+            accounts = await _context.Accounts.ToListAsync();
+            account = accounts.Where(t => t.UserName == username);
+            return account;
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<Account>> GetAccountWithId(int id)
+        {
+            IEnumerable<Account> account;
+            ICollection<Account> accounts;
+            accounts = await _context.Accounts.ToListAsync();
+            account = accounts.Where(t => t.Id == id);
+            return account;
+        }
     }
 }
