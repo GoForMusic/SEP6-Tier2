@@ -30,9 +30,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .SetIsOriginAllowed(origin => true) // allow any origin
-    .AllowCredentials());

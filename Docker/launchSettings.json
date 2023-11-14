@@ -1,0 +1,15 @@
+{
+  "Docker Compose DownloadSite": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "rest-server",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "serviceActions": {
+        "downloadeiva.adminsite": "DoNotStart",
+        "downloadeiva.downloadsite": "StartDebugging",
+        "downloadeiva-db": "StartWithoutDebugging",
+        "pgadmin": "StartWithoutDebugging"
+      }
+    }
+}

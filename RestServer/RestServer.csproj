@@ -4,6 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>bef23d53-69b0-4cae-98f8-7132aa963de6</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,5 +29,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
+
 
 </Project>
