@@ -6,6 +6,8 @@ WORKDIR /src
 
 #Here need to copy the projects in individual linux folder
 COPY ["RestServer/RestServer.csproj","RestServer/"]
+COPY ["Shared/Shared.csproj","RestServer/"]
+
 
 RUN dotnet restore "RestServer/RestServer.csproj"
 COPY . .

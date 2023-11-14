@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  tier2-server:
+    container_name: tier2-server_${ENV:-}
+    build:
+      context: .
+      dockerfile: ../RestServer/Dockerfile
+      target: final
+    restart: unless-stopped
+    depends_on:
+      - tier2-server-db
+    environment:
+      ASPNETCORE_URLS: https://+:443;https://+:80
+      ASPNETCORE_ENVIRONMENT: ${ASP_ENV:-}
+      DATABASE_CONNECTION_STRING: ${DB_CONNECTION_STRING:-}
+        
+  tier2-server-db:
+    image: postgres:15.2-bullseye
+    container_name: tier2-server-db_${ENV:-}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-}
+      POSTGRES_DB: movies
+    volumes:
+      - tier2-server-db-volume:/var/lib/postgresql/data
+  
+volumes:
+  tier2-server-db-volume:
+    name: rest-server-db-volume-${ENV:-}
