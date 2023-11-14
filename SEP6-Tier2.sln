@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestServer", "RestServer\RestServer.csproj", "{F78D6F4A-3398-482A-A3EB-CEEB09C92EF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{D52B48A0-CB1A-4904-8B83-CC11D2BE7760}"
+EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B9ED085F-06FB-44EF-B4E5-5672061ADBED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{364878F0-1567-4755-A46C-B0D63A309D5A}"
