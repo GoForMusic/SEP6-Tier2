@@ -1,0 +1,23 @@
+﻿trigger:
+  branches:
+    include:
+      - '*'
+    exclude:
+      - master
+      - releases/*
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+  - stage:
+    jobs:
+      - job: Build_Internal
+        steps:
+          - template: ../tasks/build.yml
+          - template: ../tasks/test.yml
