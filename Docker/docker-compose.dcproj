@@ -18,7 +18,6 @@
     <None Include="docker-compose.dev.local.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
-    <Content Include="docker-compose.test.yml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="launchSettings.json" />

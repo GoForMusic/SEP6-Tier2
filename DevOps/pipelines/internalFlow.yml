@@ -9,10 +9,15 @@
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
 stages:
   - stage:
     jobs:
-      - job: Build_docker_image
+      - job: Build-Internal
         steps:
           - template: ../tasks/build.yml
-          - template: ../tasks/build_docker_image.yml
+          - template: ../tasks/test.yml

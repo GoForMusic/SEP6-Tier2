@@ -1,12 +1,13 @@
 ﻿steps:
-  - task: UseDotNet@2
-    displayName: 'Use .NET Core sdk'
+  - task: NuGetToolInstaller@1
+    
+  - task: NuGetCommand@2
     inputs:
-      packageType: sdk
-      version: 7.0.402
-  - task: DotNetCoreCLI@2
-    displayName: Build
+      restoreSolution: '$(solution)'
+      
+  - task: VSBuild@1
     inputs:
-      command: 'build'
-      projects: '*.sln'
-      arguments: --configuration Release
+      solution: '$(solution)'
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'

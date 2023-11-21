@@ -21,9 +21,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet","RestServer.dll"]
-
-FROM build AS test
-WORKDIR /
-RUN dotnet restore "UnitTest/UnitTest.csproj" --configfile NuGet.Config
-WORKDIR "/UnitTest"
-RUN dotnet build "UnitTest.csproj" -c Release --no-restore -o /app/build

@@ -1,0 +1,14 @@
+﻿steps:
+  - task: VSTest@2
+    inputs:
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+      failOnMinTestsNotRun: false
+      resultsFolder: '$(System.DefaultWorkingDirectory)/Test/Results'
+      otherConsoleOptions: '/collect:"Code Coverage;Format=Cobertura"'
+      codeCoverageEnable: true
+        
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/Test/Results/**/*.cobertura.xml'
