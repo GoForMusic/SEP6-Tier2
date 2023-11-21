@@ -15,5 +15,4 @@ stages:
       - job: Build_docker_image
         steps:
           - template: ../tasks/build.yml
-          - template: ../tasks/install_docker.yml
           - template: ../tasks/build_docker_image.yml
