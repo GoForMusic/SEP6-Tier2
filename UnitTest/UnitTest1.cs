@@ -12,4 +12,10 @@ public class Tests
     {
         Assert.Pass();
     }
+    
+    [Test]
+    public void Test2()
+    {
+        Assert.AreEqual(1+1,2);
+    }
 }
