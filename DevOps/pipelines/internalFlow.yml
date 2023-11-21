@@ -7,7 +7,7 @@
       - releases/*
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   solution: '**/*.sln'
