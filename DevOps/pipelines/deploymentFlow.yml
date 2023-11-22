@@ -1,9 +1,6 @@
-﻿trigger:
+trigger:
   branches:
     include:
-      - '*'
-    exclude:
-      - main
       - releases/*
 
 pool:
@@ -17,7 +14,8 @@ variables:
 stages:
   - stage:
     jobs:
-      - job: Tier2_CI
+      - job: Tier2_CD
         steps:
           - template: ../tasks/build.yml
           - template: ../tasks/test.yml
+          - template: ../tasks/deploy.yml
