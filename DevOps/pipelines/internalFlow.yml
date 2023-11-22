@@ -17,7 +17,7 @@ variables:
 stages:
   - stage:
     jobs:
-      - job: Build_Internal
+      - job: Tier2_CI
         steps:
           - template: ../tasks/build.yml
           - template: ../tasks/test.yml
