@@ -1,15 +1,9 @@
 ﻿trigger:
   branches:
     include:
+      - '*'
     exclude:
       - '*'
-  paths:
-    exclude:
-      - master
-      - releases/*
-      - '*'
-
-
 
 pr:
   branches:
