@@ -1,4 +1,9 @@
-﻿pr:
+﻿trigger:
+  branches:
+    exclude:
+      - master
+      - releases/*
+pr:
   branches:
     include:
       - '*'
