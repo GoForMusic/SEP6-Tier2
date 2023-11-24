@@ -1,3 +1,5 @@
+using Assert = NUnit.Framework.Assert;
+
 namespace UnitTest;
 
 public class Tests
