@@ -5,14 +5,18 @@
   
   - task: NuGetToolInstaller@1
     
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(solution)'
-  
   - task: DotNetCoreCLI@2
-    displayName: Build
+    displayName: 'Restore NuGet Packages'
     inputs:
-      command: build
+      command: 'restore'
       projects: '$(solution)'
-      arguments: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"' # Update this to match your need
-      configuration: '$(buildConfiguration)'
+      feedsToUse: 'select'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration)'
+      zipAfterPublish: true  # Optional: zips the published output for easier deployment
+      modifyOutputPath: false  # Optional: keeps the default output path
