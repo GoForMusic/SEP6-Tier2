@@ -29,10 +29,6 @@ namespace RestServer.Data
         {
             modelBuilder.Entity<Account>().Property(t => t.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Account>().HasKey(t => t.Id);
-            //modelBuilder.Entity<Player>().Property(s => s.ID).ValueGeneratedOnAdd();
-            //modelBuilder.Entity<Player>().HasKey(t => t.ID);
-            //modelBuilder.Entity<HoleScore>().Property(s => s.ID).ValueGeneratedOnAdd();
-            //modelBuilder.Entity<HoleScore>().HasKey(t => t.ID);
         }
     }
 }
