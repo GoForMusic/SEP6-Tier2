@@ -8,6 +8,7 @@ using Moq;
 using RestServer.Data;
 using Shared;
 using Xunit;
+using Assert = Xunit.Assert;
 
 
 namespace DAOTest
