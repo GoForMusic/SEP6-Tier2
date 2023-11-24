@@ -102,5 +102,21 @@ namespace RestServer.Controller
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("/HelloWorld")]
+        public async Task<ActionResult<string>> GetHelloWorld()
+        {
+            try
+            {
+                string text = await _service.GetHelloWorld();
+                return Ok(text);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

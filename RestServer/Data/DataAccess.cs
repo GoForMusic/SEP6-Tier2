@@ -55,5 +55,12 @@ namespace RestServer.Data
             account = accounts.Where(t => t.Id == id);
             return account;
         }
+
+        public async Task<string> GetHelloWorld()
+        {
+
+            return  "Hello World";
+        }
+
     }
 }

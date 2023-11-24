@@ -1,4 +1,4 @@
-﻿{
+{
   "profiles": {
     "DownloadSite": {
       "commandName": "Project",
@@ -7,6 +7,16 @@
         "ASPNETCORE_ADDITIONAL_APPSETTINGS": "VisualStudio"
       },
       "applicationUrl": "https://localhost:44317"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchUrl": "https://localhost:44317",
+      "environmentVariables": {
+        "ASPNETCORE_ADDITIONAL_APPSETTINGS": "VisualStudio",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:44317"
+      },
+      "distributionName": ""
     }
   }
 }
