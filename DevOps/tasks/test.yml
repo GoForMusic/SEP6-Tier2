@@ -1,14 +1,14 @@
 ﻿steps:
-  - task: VSTest@2
+  - task: DotNetCoreCLI@2
+    displayName: 'Test'
     inputs:
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-      failOnMinTestsNotRun: false
-      resultsFolder: '$(System.DefaultWorkingDirectory)/Test/Results'
-      otherConsoleOptions: '/collect:"Code Coverage;Format=Cobertura"'
-      codeCoverageEnable: true
-        
+      command: 'test'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration) --collect:"Code Coverage" --logger trx'
+      publishTestResults: true
+      testRunTitle: 'Unit Tests'
+
   - task: PublishCodeCoverageResults@1
     inputs:
       codeCoverageTool: 'Cobertura'
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/Test/Results/**/*.cobertura.xml'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*.cobertura.xml'
