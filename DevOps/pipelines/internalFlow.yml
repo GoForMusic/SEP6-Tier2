@@ -1,0 +1,27 @@
+﻿trigger:
+  branches:
+    include:
+      - '*'
+    exclude:
+      - '*'
+
+pr:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+  - stage:
+    jobs:
+      - job: Tier2_CI
+        steps:
+          - template: ../tasks/build.yml
+          - template: ../tasks/test.yml

@@ -1,0 +1,14 @@
+﻿steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Test'
+    inputs:
+      command: 'test'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration) --collect:"Code Coverage" --logger trx'
+      publishTestResults: true
+      testRunTitle: 'Unit Tests'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*.cobertura.xml'

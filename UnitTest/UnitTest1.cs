@@ -1,3 +1,5 @@
+using Assert = NUnit.Framework.Assert;
+
 namespace UnitTest;
 
 public class Tests
@@ -11,5 +13,11 @@ public class Tests
     public void Test1()
     {
         Assert.Pass();
+    }
+    
+    [Test]
+    public void Test2()
+    {
+        Assert.AreEqual(1+1,2);
     }
 }
