@@ -1,10 +1,12 @@
 ﻿trigger:
   branches:
-    include:
-      - '*'
     exclude:
       - master
       - releases/*
+  pr:
+    branches:
+      include:
+        - '*'
 
 pool:
   vmImage: ubuntu-latest
