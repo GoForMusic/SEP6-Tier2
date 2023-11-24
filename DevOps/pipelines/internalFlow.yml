@@ -3,11 +3,15 @@
     include:
       - '*'
     exclude:
-      - main
-      - releases/*
+      - '*'
+
+pr:
+  branches:
+    include:
+      - '*'
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 variables:
   solution: '**/*.sln'
