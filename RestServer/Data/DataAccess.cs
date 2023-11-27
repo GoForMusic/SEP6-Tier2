@@ -63,5 +63,16 @@ namespace RestServer.Data
             return myMessage;
         }
 
+        public async Task<Message> GetHelloWorld2()
+        {
+            Random random = new Random();
+    
+            string[] messages = { "Hello World", "Hola Mundo", "Bonjour le monde", "Hallo Welt" }; // Add your messages here
+    
+            Message myMessage = new Message();
+            myMessage.message = messages[random.Next(0, messages.Length)];
+    
+            return myMessage;
+        }
     }
 }

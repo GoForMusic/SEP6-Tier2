@@ -35,5 +35,7 @@ namespace RestServer.Data
         public  Task<IEnumerable<Account>> GetAccountWithId(int id);
 
         public  Task<Message> GetHelloWorld();
+        // Marty test
+        public Task<Message> GetHelloWorld2();
     }
 }
