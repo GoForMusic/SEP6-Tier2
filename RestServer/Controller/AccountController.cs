@@ -15,13 +15,13 @@ namespace RestServer.Controller
         /// <summary>
         /// Data access instance
         /// </summary>
-        private readonly DataAccess _service;
+        private readonly IDataAccess _service;
 
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
         /// <param name="service"></param>
-        public AccountController(DataAccess service)
+        public AccountController(IDataAccess service)
         {
             _service = service;
         }
@@ -110,6 +110,22 @@ namespace RestServer.Controller
             try
             {
                 Message text = await _service.GetHelloWorld();
+                return Ok(text);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
+        [HttpGet]
+        [Route("/HelloWorld2")]
+        public async Task<ActionResult<Message>> GetHelloWorld2()
+        {
+            try
+            {
+                Message text = await _service.GetHelloWorld2();
                 return Ok(text);
             }
             catch (Exception e)
