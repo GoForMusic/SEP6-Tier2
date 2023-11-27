@@ -56,10 +56,11 @@ namespace RestServer.Data
             return account;
         }
 
-        public async Task<string> GetHelloWorld()
+        public async Task<Message> GetHelloWorld()
         {
-
-            return  "Hello World";
+            Message myMessage = new Message();
+            myMessage.message = "Hello World";
+            return myMessage;
         }
 
     }

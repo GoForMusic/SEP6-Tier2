@@ -34,6 +34,6 @@ namespace RestServer.Data
         /// <returns>the specific id</returns>
         public  Task<IEnumerable<Account>> GetAccountWithId(int id);
 
-        public  Task<string> GetHelloWorld();
+        public  Task<Message> GetHelloWorld();
     }
 }
