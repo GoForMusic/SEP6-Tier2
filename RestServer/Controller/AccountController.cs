@@ -105,11 +105,11 @@ namespace RestServer.Controller
 
         [HttpGet]
         [Route("/HelloWorld")]
-        public async Task<ActionResult<string>> GetHelloWorld()
+        public async Task<ActionResult<Message>> GetHelloWorld()
         {
             try
             {
-                string text = await _service.GetHelloWorld();
+                Message text = await _service.GetHelloWorld();
                 return Ok(text);
             }
             catch (Exception e)
