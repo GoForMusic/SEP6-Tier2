@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +13,16 @@ namespace Shared
         /// <summary>
         /// The id of the movie
         /// </summary>
-        public Movie MovieId { get; set; }
+        [Required]
+        [ForeignKey("Movie")]
+        public Movie movie_id { get; set; }
 
         /// <summary>
         /// The id of the person
         /// </summary>
-        public People PersonId { get; set; }
+        [Required]
+        [ForeignKey("People")]
+        public People person_id { get; set; }
 
         /// <summary>
         /// Empty constructor

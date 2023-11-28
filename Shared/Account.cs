@@ -1,4 +1,7 @@
-﻿namespace Shared
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Shared
 {
     /// <summary>
     /// Account class or user class
@@ -6,25 +9,24 @@
     public class Account
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+        /// <summary>
         /// Username
         /// </summary>
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
         /// Password
         /// </summary>
+        [Required]
         public string Password { get; set; }
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// A list of movies saved.
-        /// </summary>
-        public List<Movie> WatchList { get; set; }
-
+        
+        [ForeignKey("Movie")]
+        public ICollection<Movie> WatchList { get; set; }
         /// <summary>
         /// Constructor
         /// </summary>
