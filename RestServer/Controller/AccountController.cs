@@ -103,6 +103,10 @@ namespace RestServer.Controller
             }
         }
 
+        /// <summary>
+        /// Get hello world
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("/HelloWorld")]
         public async Task<ActionResult<Message>> GetHelloWorld()
@@ -119,6 +123,10 @@ namespace RestServer.Controller
             }
         }
         
+        /// <summary>
+        /// Hello world
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("/HelloWorld2")]
         public async Task<ActionResult<Message>> GetHelloWorld2()
@@ -135,6 +143,12 @@ namespace RestServer.Controller
             }
         }
         
+        /// <summary>
+        /// Log in with userName and password
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">password</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("login/{username}/{password}")]
         // login user

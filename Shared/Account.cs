@@ -15,7 +15,15 @@
         /// </summary>
         public string Password { get; set; }
 
+        /// <summary>
+        /// Id
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// A list of movies saved.
+        /// </summary>
+        public List<Movie> WatchList { get; set; }
 
         /// <summary>
         /// Constructor
