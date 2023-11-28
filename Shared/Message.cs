@@ -2,5 +2,8 @@ namespace Shared;
 
 public class Message
 {
-    public string? message { get; set; }
+    /// <summary>
+    /// Message
+    /// </summary>
+    public string? MessageText { get; set; }
 }

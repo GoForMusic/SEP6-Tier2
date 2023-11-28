@@ -59,7 +59,7 @@ namespace RestServer.Data
         public async Task<Message> GetHelloWorld()
         {
             Message myMessage = new Message();
-            myMessage.message = "Hello World";
+            myMessage.MessageText = "Hello World";
             return myMessage;
         }
 
@@ -70,7 +70,7 @@ namespace RestServer.Data
             string[] messages = { "Hello World", "Hola Mundo", "Bonjour le monde", "Hallo Welt" }; // Add your messages here
     
             Message myMessage = new Message();
-            myMessage.message = messages[random.Next(0, messages.Length)];
+            myMessage.MessageText = messages[random.Next(0, messages.Length)];
     
             return myMessage;
         }
