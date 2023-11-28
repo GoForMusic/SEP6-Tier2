@@ -1,9 +1,10 @@
-﻿<component name="ProjectRunConfigurationManager">
+<component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Docker: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="composeProjectName" value="restserver" />
         <option name="envFilePath" value="" />
+        <option name="commandLineOptions" value="--build" />
         <option name="secondarySourceFiles">
           <list>
             <option value="Docker/docker-compose.dev.local.yml" />
