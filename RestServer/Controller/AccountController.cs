@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestServer.Data;
+using RestServer.Data.DAOInterfaces;
 using Shared;
 
 namespace RestServer.Controller
@@ -15,13 +15,13 @@ namespace RestServer.Controller
         /// <summary>
         /// Data access instance
         /// </summary>
-        private readonly IDataAccess _service;
+        private readonly IAccountDAO _service;
 
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
         /// <param name="service"></param>
-        public AccountController(IDataAccess service)
+        public AccountController(IAccountDAO service)
         {
             _service = service;
         }

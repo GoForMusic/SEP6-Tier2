@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Shared
         /// Id of the movie
         /// Long because in db is bigint
         /// </summary>
+        [Key]
         public long Id { get; set; } 
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace Shared
         /// Year of the movie was released
         /// Decimal because in the database it is numeric
         /// </summary>
-        public decimal Year { get; set; }
+        public int? Year { get; set; }
 
         /// <summary>
         /// Empty constructor

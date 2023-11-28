@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Shared
         /// <summary>
         /// Id
         /// </summary>
+        [Key]
         public long Id { get; set; }
 
         /// <summary>
@@ -24,7 +26,7 @@ namespace Shared
         /// <summary>
         /// BirthYear
         /// </summary>
-        public decimal BirthYear { get; set; }
+        public decimal? BirthYear { get; set; }
 
         /// <summary>
         /// Empty constructor

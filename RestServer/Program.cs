@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using RestServer;
 using RestServer.Data;
+using RestServer.Data.DAOImplementation;
+using RestServer.Data.DAOInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +12,32 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<Context>();
-builder.Services.AddScoped<IDataAccess, DataAccess>();
-builder.Services.AddScoped<DataAccess>();
+
+//App settings
+AppSettings? appSettings = builder.Configuration.Get<AppSettings>(options =>
+{
+    options.BindNonPublicProperties = true;
+});
+
+if (appSettings == null)
+{
+    throw new ArgumentException($"{nameof(AppSettings)} was not loaded.");
+}
+
+//Services
+builder.Services.AddScoped<IAccountDAO, AccountDao>();
 
 
+//DB
+builder.Services.AddDbContext<Context>(options =>
+{
+    //Later can be stored in appsettings
+    options.UseNpgsql(AppSettings.DATABASE_CONNECTION_STRING);
+    options.EnableSensitiveDataLogging();
+});
 
+
+//->BUILD
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
