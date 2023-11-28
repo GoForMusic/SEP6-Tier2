@@ -37,5 +37,6 @@ namespace RestServer.Data
         public  Task<Message> GetHelloWorld();
         // Marty test
         public Task<Message> GetHelloWorld2();
+        public Task<Account> LoginAsync(string username, string password);
     }
 }
