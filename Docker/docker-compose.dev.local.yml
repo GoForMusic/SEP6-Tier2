@@ -12,12 +12,3 @@ services:
       HTTP_PORT: 8017
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_ADDITIONAL_APPSETTINGS: Local
-      DATABASE_CONNECTION_STRING: Host=rest-server-db_dev-local;Database=RestServerDB;Username=root;Password=Localonly123;
-  
-  tier2-server-db:
-    container_name: tier2-server-db_dev-local
-    restart: 'no'
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: Localonly123
