@@ -89,6 +89,28 @@ namespace RestServer.Data
 
             return null;
         }
+
+        public async Task<Account> RegisterAccount(Account account)
+        {
+            try
+            {
+                account.Password = encryptPassword(account.Password);
+                EntityEntry<Account> add = await _context.Accounts.AddAsync(account);
+                await _context.SaveChangesAsync();
+                return add.Entity;
+            }catch (Exception e)
+            {
+                Console.WriteLine(e+" "+ e.StackTrace); 
+            }
+
+            return account;
+        }
+
+        private string encryptPassword(string passwordPlaintext)
+        {
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            return BCrypt.Net.BCrypt.HashPassword(passwordPlaintext, salt);
+        }
         
         private bool validateHashPassword(string passwordPlaintext, string passwordHash)
         {
