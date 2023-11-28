@@ -134,5 +134,25 @@ namespace RestServer.Controller
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [HttpGet]
+        [Route("login/{username}/{password}")]
+        // login user
+        public async Task<ActionResult<Account>> LoginAsync(string username, string password)
+        {
+            try
+            {
+                Account user = await _service.LoginAsync(username,password);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        
+       
+            // await CacheUserAsync(user!);
+        }
+        
     }
 }
