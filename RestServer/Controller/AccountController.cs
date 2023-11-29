@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestServer.Data.DAOInterfaces;
 using Shared;
+using Shared.SpecialCases;
 
 namespace RestServer.Controller
 {
@@ -32,7 +33,7 @@ namespace RestServer.Controller
         {
             try
             {
-                Account createAccount = await _service.CreateAccount(account);
+                Account createAccount = await _service.RegisterAccount(account);
                 return Created($"/account/{createAccount.UserName}", account);
             }
             catch (Exception e)
@@ -149,14 +150,14 @@ namespace RestServer.Controller
         /// <param name="username">username</param>
         /// <param name="password">password</param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("login/{username}/{password}")]
+        [HttpPost]
+        [Route("login")]
         // login user
-        public async Task<ActionResult<Account>> LoginAsync(string username, string password)
+        public async Task<ActionResult<Account>> LoginAsync([FromBody]RequestLogin requestLogin)
         {
             try
             {
-                Account user = await _service.LoginAsync(username,password);
+                Account user = await _service.LoginAsync(requestLogin.username,requestLogin.password);
                 return Ok(user);
             }
             catch (Exception e)

@@ -95,7 +95,8 @@ namespace RestServer.Data.DAOImplementation
         {
             try
             {
-                account.Password = encryptPassword(account.Password);
+                var text = encryptPassword(account.Password);
+                account.Password = text;
                 EntityEntry<Account> add = await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
                 return add.Entity;
