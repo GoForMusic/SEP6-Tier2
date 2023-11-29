@@ -43,6 +43,31 @@ public class UserNUnitTest
     }
 
     [Test]
+    public async virtual Task RegisterAUser()
+    {
+        Account account = new Account() { UserName = "test", Password = "123" };
+        _context.Accounts.AddRange(account);
+        await _context.SaveChangesAsync();
+        
+        IEnumerable<Account> getAccount = await _accountDao.GetAccountWithUserName("test");
+        Assert.IsNotEmpty(getAccount);
+    }
+    
+    [Test]
+    public async virtual Task RegisterTwistFail()
+    {
+        // Arrange
+        Account account = new Account() { UserName = "test", Password = "123" };
+
+        await _accountDao.RegisterAccount(account);
+        // Act & Assert
+        var exception = Assert.ThrowsAsync<Exception>(async () => await _accountDao.RegisterAccount(account));
+    
+        // Assert
+        Assert.AreEqual("Username is already in use.", exception.Message);
+    }
+    
+    [Test]
     public async virtual Task GetUserFound()
     {
         var accounts = new List<Account>

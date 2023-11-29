@@ -95,14 +95,25 @@ namespace RestServer.Data.DAOImplementation
         {
             try
             {
+                // Check if the username already exists in the database
+                bool isUsernameExists = await _context.Accounts.AnyAsync(a => a.UserName == account.UserName);
+
+                if (isUsernameExists)
+                {
+                    throw new Exception("Username is already in use.");
+                }
+
                 var text = encryptPassword(account.Password);
                 account.Password = text;
+
                 EntityEntry<Account> add = await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
                 return add.Entity;
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
-                Console.WriteLine(e+" "+ e.StackTrace); 
+                // Handle or log the exception
+                throw; // Re-throw the exception to propagate it further if needed
             }
 
             return account;
