@@ -12,7 +12,7 @@ namespace Shared
         /// Id
         /// </summary>
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         /// <summary>
         /// Username
         /// </summary>
@@ -26,7 +26,7 @@ namespace Shared
         public string Password { get; set; }
         
         [ForeignKey("Movie")]
-        public ICollection<Movie> WatchList { get; set; }
+        public ICollection<Movie>? WatchList { get; set; }
         /// <summary>
         /// Constructor
         /// </summary>
