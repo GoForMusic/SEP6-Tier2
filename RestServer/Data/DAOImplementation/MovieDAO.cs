@@ -23,7 +23,7 @@ namespace RestServer.Data.DAOImplementation
         public async Task<List<Movie>> SearchMovie(string title)
         {
             List<Movie> movies = await _context.Movies.Where(t => t.title.ToLower().StartsWith(title.ToLower())).Take(5).ToListAsync();
-
+            var t = movies.Count;
             return movies;
         }
 
