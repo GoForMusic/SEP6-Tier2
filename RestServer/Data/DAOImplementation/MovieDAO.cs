@@ -19,14 +19,18 @@ namespace RestServer.Data.DAOImplementation
             _context = context;
         }
 
-        public Task<List<Movie>> SearchMovie(string title)
+        /// <inheritdoc />
+        public async Task<List<Movie>> SearchMovie(string title)
         {
-            throw new NotImplementedException();
+            List<Movie> movies = await _context.Movies.Where(t => t.title.ToLower().StartsWith(title.ToLower())).Take(5).ToListAsync();
+
+            return movies;
         }
 
+        /// <inheritdoc />
         public async Task<List<Movie>> FilterMoviesByYear(int year)
         {
-            var movies = await _context.Movies.Where(m => m.year == year).Take(21).ToListAsync();
+            List<Movie> movies = await _context.Movies.Where(m => m.year == year).Take(21).ToListAsync();
             return movies;
         }
     }

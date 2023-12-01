@@ -50,8 +50,8 @@ namespace RestServer.Controller
         /// <param name="title">the title of the movie</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/movies/search")]
-        public async Task<ActionResult<List<Movie>>> SearchMovie([FromBody] string title)
+        [Route("/movies/search/{title}")]
+        public async Task<ActionResult<List<Movie>>> SearchMovie(string title)
         {
             try
             {

@@ -13,7 +13,7 @@ namespace RestServer.Data.DAOInterfaces
         /// if sta is given, it will return 5 movies that start with sta
         /// </summary>
         /// <param name="title">a text to search for in the database</param>
-        /// <returns>List of movies</returns>
+        /// <returns>List of 5 movies</returns>
         public Task<List<Movie>> SearchMovie(string title);
 
         /// <summary>
