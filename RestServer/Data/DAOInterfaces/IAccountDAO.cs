@@ -39,5 +39,7 @@ namespace RestServer.Data.DAOInterfaces
         public Task<Message> GetHelloWorld2();
         public Task<Account> LoginAsync(string username, string password);
         public Task<Account> RegisterAccount(Account account);
+
+      
     }
 }

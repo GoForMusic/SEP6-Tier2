@@ -17,18 +17,18 @@ namespace Shared
         /// Long because in db is bigint
         /// </summary>
         [Key]
-        public long Id { get; set; } 
+        public long id { get; set; } 
 
         /// <summary>
         /// Title of the movie
         /// </summary>
-        public string Title { get; set; }
+        public string title { get; set; }
 
         /// <summary>
         /// Year of the movie was released
         /// Decimal because in the database it is numeric
         /// </summary>
-        public int? Year { get; set; }
+        public int? year { get; set; }
 
         /// <summary>
         /// Empty constructor
