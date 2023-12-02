@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Shared
 {
@@ -17,24 +12,17 @@ namespace Shared
         /// Long because in db is bigint
         /// </summary>
         [Key]
-        public long id { get; set; } 
+        public long Id { get; set; } 
 
         /// <summary>
         /// Title of the movie
         /// </summary>
-        public string title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Year of the movie was released
         /// Decimal because in the database it is numeric
         /// </summary>
-        public int? year { get; set; }
-
-        /// <summary>
-        /// Empty constructor
-        /// </summary>
-        public Movie()
-        {}
-
+        public int? Year { get; set; }
     }
 }

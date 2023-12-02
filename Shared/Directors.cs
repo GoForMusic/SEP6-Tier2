@@ -23,7 +23,7 @@ namespace Shared
         [Required]
         [ForeignKey("People")]
         public People person_id { get; set; }
-
+        
         /// <summary>
         /// Empty constructor
         /// </summary>
