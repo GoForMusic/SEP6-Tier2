@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RestServer.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,12 +57,15 @@ namespace RestServer.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Movie = table.Column<long>(type: "bigint", nullable: false),
                     RatingValue = table.Column<float>(type: "real", nullable: false),
                     Votes = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Ratings_Movies_Movie",
                         column: x => x.Movie,
@@ -75,11 +78,14 @@ namespace RestServer.Migrations
                 name: "Directors",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Movie = table.Column<long>(type: "bigint", nullable: false),
                     People = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Directors", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Directors_Movies_Movie",
                         column: x => x.Movie,
@@ -98,11 +104,14 @@ namespace RestServer.Migrations
                 name: "Stars",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Movie = table.Column<long>(type: "bigint", nullable: false),
                     People = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Stars", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Stars_Movies_Movie",
                         column: x => x.Movie,
@@ -121,11 +130,14 @@ namespace RestServer.Migrations
                 name: "WatchLists",
                 columns: table => new
                 {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Movie = table.Column<long>(type: "bigint", nullable: false),
                     Account = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_WatchLists", x => x.Id);
                     table.ForeignKey(
                         name: "FK_WatchLists_Movies_Movie",
                         column: x => x.Movie,

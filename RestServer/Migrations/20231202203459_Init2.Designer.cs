@@ -12,8 +12,8 @@ using RestServer.Data;
 namespace RestServer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231202130824_init")]
-    partial class init
+    [Migration("20231202203459_Init2")]
+    partial class Init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,11 +48,19 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.Directors", b =>
                 {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
                     b.Property<long>("Movie")
                         .HasColumnType("bigint");
 
                     b.Property<long>("People")
                         .HasColumnType("bigint");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Movie");
 
@@ -103,6 +111,12 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.Ratings", b =>
                 {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
                     b.Property<long>("Movie")
                         .HasColumnType("bigint");
 
@@ -112,6 +126,8 @@ namespace RestServer.Migrations
                     b.Property<long>("Votes")
                         .HasColumnType("bigint");
 
+                    b.HasKey("Id");
+
                     b.HasIndex("Movie");
 
                     b.ToTable("Ratings");
@@ -119,11 +135,19 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.Stars", b =>
                 {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
                     b.Property<long>("Movie")
                         .HasColumnType("bigint");
 
                     b.Property<long>("People")
                         .HasColumnType("bigint");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Movie");
 
@@ -134,11 +158,19 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.WatchList", b =>
                 {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+
                     b.Property<long>("Account")
                         .HasColumnType("bigint");
 
                     b.Property<long>("Movie")
                         .HasColumnType("bigint");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Account");
 

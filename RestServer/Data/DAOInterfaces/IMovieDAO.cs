@@ -22,5 +22,14 @@ namespace RestServer.Data.DAOInterfaces
         /// <param name="year">year to filter by</param>
         /// <returns>A list of 21 movies from the given year( if 21 exists)</returns>
         public Task<List<Movie>> FilterMoviesByYear(int year);
+
+        /// <summary>
+        /// A method that will filter the movies that have a rating between n...n,9
+        /// </summary>
+        /// <param name="rate">The rate value will be 1...10</param>
+        /// <param name="pageNumber">Use for pagination</param>
+        /// <param name="pageSize">And default will be 21 if the user will not specify in query</param>
+        /// <returns></returns>
+        public Task<List<Ratings>> FilterMoviesByRating(int rate,int pageNumber,int pageSize);
     }
 }

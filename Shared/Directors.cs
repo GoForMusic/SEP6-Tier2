@@ -11,6 +11,11 @@ namespace Shared
     public  class Directors
     {
         /// <summary>
+        /// PK
+        /// </summary>
+        [Key]
+        public long? Id { get; set; }
+        /// <summary>
         /// The id of the movie
         /// </summary>
         [Required]

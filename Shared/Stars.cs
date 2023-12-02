@@ -14,6 +14,11 @@ namespace Shared
     public class Stars
     {
         /// <summary>
+        /// PK
+        /// </summary>
+        [Key]
+        public long? Id { get; set; }
+        /// <summary>
         /// Movie Id
         /// </summary>
         [Required]

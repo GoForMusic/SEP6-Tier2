@@ -6,6 +6,11 @@ namespace Shared;
 public class WatchList
 {
     /// <summary>
+    /// PK
+    /// </summary>
+    [Key]
+    public long? Id { get; set; }
+    /// <summary>
     /// The id of the movie
     /// </summary>
     [Required]
