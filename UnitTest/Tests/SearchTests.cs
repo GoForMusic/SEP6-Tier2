@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using RestServer.Data;
 using RestServer.Data.DAOImplementation;
@@ -114,6 +115,40 @@ namespace UnitTest.Tests
             Assert.AreEqual(21, count);
             Assert.IsInstanceOf<List<Movie>>(result);
             
+        }
+
+        [Test]
+        public async Task FilterByRatingBetweenNandNplusOne()
+        {
+            var movies = new List<Movie>
+            {
+                new Movie {Id = 1,Title = "star wars1", Year = 2000},
+                new Movie {Id = 2,Title = "star wars2", Year = 2000},
+                new Movie {Id = 3,Title = "star wars3", Year = 2000},
+                new Movie {Id = 4,Title = "star wars4", Year = 2000}
+            };
+            
+            _context.Movies.AddRange(movies);
+            await _context.SaveChangesAsync();
+            var movies_from_db = await _context.Movies.ToListAsync();
+            
+            var rating = new List<Ratings>
+            {
+                new Ratings {RatingValue = 1,Votes = 1,movie_id = movies_from_db[0]},
+                new Ratings {RatingValue = 1.5f,Votes = 1,movie_id = movies_from_db[1]},
+                new Ratings {RatingValue = 1.9f,Votes = 1,movie_id = movies_from_db[2]},
+                new Ratings {RatingValue = 2,Votes = 3,movie_id = movies_from_db[3]}
+            };
+            
+            await _context.Ratings.AddRangeAsync(rating);
+            await _context.SaveChangesAsync();
+            // Act
+            var result = await _movieDAO.FilterMoviesByRating(1,1,21);
+            
+            
+            // Assert
+            Assert.AreEqual(3, result.Count);
+            Assert.IsInstanceOf<List<Ratings>>(result);
         }
 
     }

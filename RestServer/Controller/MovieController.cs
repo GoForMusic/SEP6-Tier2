@@ -64,5 +64,35 @@ namespace RestServer.Controller
                 return StatusCode(500, e.Message);
             }
         }
+        
+        /// <summary>
+        /// Method to return movies list between specific rating
+        /// And will compere between n...n,9
+        /// </summary>
+        /// <param name="rate">Rate value 1...10</param>
+        /// <param name="pageNumber">Use for pagination</param>
+        /// <param name="pageSize">Default it will be 21 as empty query otherwise user can use is own</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/movies/rating/{rate}")]
+        public async Task<ActionResult<List<Ratings>>> SearchByRating(int rate,[FromQuery] int pageNumber,[FromQuery] int pageSize)
+        {
+            try
+            {
+                
+                Console.WriteLine(pageNumber + " " + pageSize);
+                // Check if pageNumber==0 than use default page that is 1
+                // Check if pageSize==0 than use 21 elements as default otherwise use the user input
+                ICollection<Ratings> movies = await _service.FilterMoviesByRating(rate,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
+                
+                
+                return Ok(movies);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

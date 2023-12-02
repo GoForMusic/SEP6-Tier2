@@ -32,10 +32,6 @@ namespace RestServer.Data
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<Directors>().HasNoKey();
-            modelBuilder.Entity<Ratings>().HasNoKey();
-            modelBuilder.Entity<Stars>().HasNoKey();
-            modelBuilder.Entity<WatchList>().HasNoKey();
         }
     }
 }
