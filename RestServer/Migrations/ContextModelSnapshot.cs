@@ -24,11 +24,11 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -66,9 +66,6 @@ namespace RestServer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int?>("Movie")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -77,8 +74,6 @@ namespace RestServer.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Movie");
 
                     b.ToTable("Movies");
                 });
@@ -134,6 +129,21 @@ namespace RestServer.Migrations
                     b.ToTable("Stars");
                 });
 
+            modelBuilder.Entity("Shared.WatchList", b =>
+                {
+                    b.Property<long>("Account")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Movie")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("Account");
+
+                    b.HasIndex("Movie");
+
+                    b.ToTable("WatchLists");
+                });
+
             modelBuilder.Entity("Shared.Directors", b =>
                 {
                     b.HasOne("Shared.Movie", "movie_id")
@@ -151,13 +161,6 @@ namespace RestServer.Migrations
                     b.Navigation("movie_id");
 
                     b.Navigation("person_id");
-                });
-
-            modelBuilder.Entity("Shared.Movie", b =>
-                {
-                    b.HasOne("Shared.Account", null)
-                        .WithMany("WatchList")
-                        .HasForeignKey("Movie");
                 });
 
             modelBuilder.Entity("Shared.Ratings", b =>
@@ -190,9 +193,23 @@ namespace RestServer.Migrations
                     b.Navigation("person_id");
                 });
 
-            modelBuilder.Entity("Shared.Account", b =>
+            modelBuilder.Entity("Shared.WatchList", b =>
                 {
-                    b.Navigation("WatchList");
+                    b.HasOne("Shared.People", "account_id")
+                        .WithMany()
+                        .HasForeignKey("Account")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Movie", "movie_id")
+                        .WithMany()
+                        .HasForeignKey("Movie")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("account_id");
+
+                    b.Navigation("movie_id");
                 });
 #pragma warning restore 612, 618
         }

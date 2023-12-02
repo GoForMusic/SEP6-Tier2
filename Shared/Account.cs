@@ -25,8 +25,6 @@ namespace Shared
         [Required]
         public string Password { get; set; }
         
-        [ForeignKey("Movie")]
-        public ICollection<Movie>? WatchList { get; set; }
         /// <summary>
         /// Constructor
         /// </summary>

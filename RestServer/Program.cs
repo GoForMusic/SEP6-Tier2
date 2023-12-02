@@ -13,6 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMovieDAO, MovieDAO>();
+builder.Services.AddScoped<IAccountDAO, AccountDao>();
+builder.Services.AddScoped<IPeopleDAO, PeopleDAO>();
 
 //App settings
 AppSettings? appSettings = builder.Configuration.Get<AppSettings>(options =>
@@ -24,10 +26,6 @@ if (appSettings == null)
 {
     throw new ArgumentException($"{nameof(AppSettings)} was not loaded.");
 }
-
-//Services
-builder.Services.AddScoped<IAccountDAO, AccountDao>();
-
 
 //DB
 builder.Services.AddDbContext<Context>(options =>

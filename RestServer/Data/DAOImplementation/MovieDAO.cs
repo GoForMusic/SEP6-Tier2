@@ -22,7 +22,7 @@ namespace RestServer.Data.DAOImplementation
         /// <inheritdoc />
         public async Task<List<Movie>> SearchMovie(string title)
         {
-            List<Movie> movies = await _context.Movies.Where(t => t.title.ToLower().StartsWith(title.ToLower())).Take(5).ToListAsync();
+            List<Movie> movies = await _context.Movies.Where(t => t.Title.ToLower().StartsWith(title.ToLower())).Take(5).ToListAsync();
             var t = movies.Count;
             return movies;
         }
@@ -30,7 +30,7 @@ namespace RestServer.Data.DAOImplementation
         /// <inheritdoc />
         public async Task<List<Movie>> FilterMoviesByYear(int year)
         {
-            List<Movie> movies = await _context.Movies.Where(m => m.year == year).Take(21).ToListAsync();
+            List<Movie> movies = await _context.Movies.Where(m=>m.Year==year).Take(21).ToListAsync();
             return movies;
         }
     }

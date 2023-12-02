@@ -47,11 +47,11 @@ namespace UnitTest.Tests
 
             var movies = new List<Movie>
             {
-                new Movie {title = "star wars1", year = 2000},
-                new Movie {title = "star wars2", year = 2000},
-                new Movie {title = "star wars3", year = 2000},
-                new Movie {title = "star wars4", year = 2000},
-                new Movie {title = "star wars5", year = 2000}
+                new Movie {Title = "star wars1", Year = 2000},
+                new Movie {Title = "star wars2", Year = 2000},
+                new Movie {Title = "star wars3", Year = 2000},
+                new Movie {Title = "star wars4", Year = 2000},
+                new Movie {Title = "star wars5", Year = 2000}
             };
             _context.Movies.AddRange(movies);
             await _context.SaveChangesAsync();
@@ -78,31 +78,31 @@ namespace UnitTest.Tests
             int year = 2000; // Replace with an actual year
             var movies = new List<Movie>
             {
-                new Movie {title = "star wars1", year = 2000},
-                new Movie {title = "star wars2", year = 2000},
-                new Movie {title = "star wars3", year = 2000},
-                new Movie {title = "star wars4", year = 2000},
-                new Movie {title = "star wars5", year = 2000},
-                new Movie {title = "star wars6", year = 2000},
-                new Movie {title = "star wars7", year = 2000},
-                new Movie {title = "star wars8", year = 2000},
-                new Movie {title = "star wars9", year = 2000},
-                new Movie {title = "star wars10", year = 2000},
-                new Movie {title = "star wars11", year = 2000},
-                new Movie {title = "star wars12", year = 2000},
-                new Movie {title = "star wars13", year = 2000},
-                new Movie {title = "star wars14", year = 2000},
-                new Movie {title = "star wars15", year = 2000},
-                new Movie {title = "star wars16", year = 2000},
-                new Movie {title = "star wars17", year = 2000},
-                new Movie {title = "star wars18", year = 2000},
-                new Movie {title = "star wars19", year = 2000},
-                new Movie {title = "star wars20", year = 2000},
-                new Movie {title = "star wars21", year = 2000},
-                new Movie {title = "star wars22", year = 2000},
-                new Movie {title = "star wars23", year = 2000},
-                new Movie {title = "star wars24", year = 2000},
-                new Movie {title = "star wars25", year = 2000}
+                new Movie {Title = "star wars1", Year = 2000},
+                new Movie {Title = "star wars2", Year = 2000},
+                new Movie {Title = "star wars3", Year = 2000},
+                new Movie {Title = "star wars4", Year = 2000},
+                new Movie {Title = "star wars5", Year = 2000},
+                new Movie {Title = "star wars6", Year = 2000},
+                new Movie {Title = "star wars7", Year = 2000},
+                new Movie {Title = "star wars8", Year = 2000},
+                new Movie {Title = "star wars9", Year = 2000},
+                new Movie {Title = "star wars10", Year = 2000},
+                new Movie {Title = "star wars11", Year = 2000},
+                new Movie {Title = "star wars12", Year = 2000},
+                new Movie {Title = "star wars13", Year = 2000},
+                new Movie {Title = "star wars14", Year = 2000},
+                new Movie {Title = "star wars15", Year = 2000},
+                new Movie {Title = "star wars16", Year = 2000},
+                new Movie {Title = "star wars17", Year = 2000},
+                new Movie {Title = "star wars18", Year = 2000},
+                new Movie {Title = "star wars19", Year = 2000},
+                new Movie {Title = "star wars20", Year = 2000},
+                new Movie {Title = "star wars21", Year = 2000},
+                new Movie {Title = "star wars22", Year = 2000},
+                new Movie {Title = "star wars23", Year = 2000},
+                new Movie {Title = "star wars24", Year = 2000},
+                new Movie {Title = "star wars25", Year = 2000}
             };
             _context.Movies.AddRange(movies);
             await _context.SaveChangesAsync();

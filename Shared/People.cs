@@ -27,7 +27,7 @@ namespace Shared
         /// BirthYear
         /// </summary>
         public decimal? BirthYear { get; set; }
-
+        
         /// <summary>
         /// Empty constructor
         /// </summary>

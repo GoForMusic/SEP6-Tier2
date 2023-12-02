@@ -12,8 +12,8 @@ using RestServer.Data;
 namespace RestServer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231128171930_Init")]
-    partial class Init
+    [Migration("20231202130824_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace RestServer.Migrations
 
             modelBuilder.Entity("Shared.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -132,6 +132,21 @@ namespace RestServer.Migrations
                     b.ToTable("Stars");
                 });
 
+            modelBuilder.Entity("Shared.WatchList", b =>
+                {
+                    b.Property<long>("Account")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Movie")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("Account");
+
+                    b.HasIndex("Movie");
+
+                    b.ToTable("WatchLists");
+                });
+
             modelBuilder.Entity("Shared.Directors", b =>
                 {
                     b.HasOne("Shared.Movie", "movie_id")
@@ -179,6 +194,25 @@ namespace RestServer.Migrations
                     b.Navigation("movie_id");
 
                     b.Navigation("person_id");
+                });
+
+            modelBuilder.Entity("Shared.WatchList", b =>
+                {
+                    b.HasOne("Shared.People", "account_id")
+                        .WithMany()
+                        .HasForeignKey("Account")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shared.Movie", "movie_id")
+                        .WithMany()
+                        .HasForeignKey("Movie")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("account_id");
+
+                    b.Navigation("movie_id");
                 });
 #pragma warning restore 612, 618
         }

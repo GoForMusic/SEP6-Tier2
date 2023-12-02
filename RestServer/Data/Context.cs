@@ -15,6 +15,7 @@ namespace RestServer.Data
         public DbSet<Directors> Directors { get; set; }
         public DbSet<Stars> Stars { get; set; }
         public DbSet<Ratings> Ratings { get; set; }
+        public DbSet<WatchList> WatchLists { get; set; }
         public DbSet<Account> Accounts { get; set; }
         
         /// <summary>
@@ -34,6 +35,7 @@ namespace RestServer.Data
             modelBuilder.Entity<Directors>().HasNoKey();
             modelBuilder.Entity<Ratings>().HasNoKey();
             modelBuilder.Entity<Stars>().HasNoKey();
+            modelBuilder.Entity<WatchList>().HasNoKey();
         }
     }
 }
