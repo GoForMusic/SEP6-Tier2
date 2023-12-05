@@ -5,7 +5,7 @@ using RestServer.Data.DAOImplementation;
 using RestServer.Data.DAOInterfaces;
 using Shared;
 
-namespace UnitTest;
+namespace UnitTest.Tests;
 
 
 public class UserNUnitTest

@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMovieDAO, MovieDAO>();
 builder.Services.AddScoped<IAccountDAO, AccountDao>();
 builder.Services.AddScoped<IPeopleDAO, PeopleDAO>();
+builder.Services.AddScoped<ICommentDAO, CommentDAO>();
 
 //App settings
 AppSettings? appSettings = builder.Configuration.Get<AppSettings>(options =>

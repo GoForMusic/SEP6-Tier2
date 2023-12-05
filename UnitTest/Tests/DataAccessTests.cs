@@ -8,7 +8,7 @@ using UnitTest;
 using Assert = NUnit.Framework.Assert;
 
 
-namespace DAOTest
+namespace UnitTest.Tests
 {
     /// <summary>
     /// Class which will test the db using mocking

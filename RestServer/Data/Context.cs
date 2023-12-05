@@ -17,6 +17,7 @@ namespace RestServer.Data
         public DbSet<Ratings> Ratings { get; set; }
         public DbSet<WatchList> WatchLists { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         
         /// <summary>
         /// Set which db to use
