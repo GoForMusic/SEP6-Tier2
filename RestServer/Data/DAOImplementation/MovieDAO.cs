@@ -20,17 +20,28 @@ namespace RestServer.Data.DAOImplementation
         }
 
         /// <inheritdoc />
-        public async Task<List<Movie>> SearchMovie(string title)
+        public async Task<List<Movie>> SearchMovie(string title,int pageNumber,int pageSize)
         {
-            List<Movie> movies = await _context.Movies.Where(t => t.Title.ToLower().StartsWith(title.ToLower())).Take(5).ToListAsync();
+            int recordsToSkip = (pageNumber - 1) * pageSize;
+            
+            List<Movie> movies = await _context.Movies.Where(t => t.Title.ToLower().StartsWith(title.ToLower()))
+                .Skip(recordsToSkip) // Skip the appropriate number of records
+                .Take(pageSize)      // Take the specified number of records for the page
+                .ToListAsync();
             var t = movies.Count;
             return movies;
         }
 
         /// <inheritdoc />
-        public async Task<List<Movie>> FilterMoviesByYear(int year)
+        public async Task<List<Movie>> FilterMoviesByYear(int year,int pageNumber,int pageSize)
         {
-            List<Movie> movies = await _context.Movies.Where(m=>m.Year==year).Take(21).ToListAsync();
+            // Calculate how many records to skip based on the page number and page size
+            int recordsToSkip = (pageNumber - 1) * pageSize;
+            
+            List<Movie> movies = await _context.Movies.Where(m=>m.Year==year)
+                .Skip(recordsToSkip) // Skip the appropriate number of records
+                .Take(pageSize)      // Take the specified number of records for the page
+                .ToListAsync();
             return movies;
         }
 

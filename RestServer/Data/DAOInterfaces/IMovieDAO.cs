@@ -14,14 +14,14 @@ namespace RestServer.Data.DAOInterfaces
         /// </summary>
         /// <param name="title">a text to search for in the database</param>
         /// <returns>List of 5 movies</returns>
-        public Task<List<Movie>> SearchMovie(string title);
+        public Task<List<Movie>> SearchMovie(string title,int pageNumber,int pageSize);
 
         /// <summary>
         /// Filter the movies by a given year
         /// </summary>
         /// <param name="year">year to filter by</param>
         /// <returns>A list of 21 movies from the given year( if 21 exists)</returns>
-        public Task<List<Movie>> FilterMoviesByYear(int year);
+        public Task<List<Movie>> FilterMoviesByYear(int year,int pageNumber,int pageSize);
 
         /// <summary>
         /// A method that will filter the movies that have a rating between n...n,9

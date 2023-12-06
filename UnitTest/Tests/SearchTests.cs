@@ -58,7 +58,7 @@ namespace UnitTest.Tests
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _movieDAO.SearchMovie(searchTerm);
+            var result = await _movieDAO.SearchMovie(searchTerm,1,5);
 
             var count = result.Count;
 
@@ -108,7 +108,7 @@ namespace UnitTest.Tests
             _context.Movies.AddRange(movies);
             await _context.SaveChangesAsync();
             // Act
-            var result = await _movieDAO.FilterMoviesByYear(year);
+            var result = await _movieDAO.FilterMoviesByYear(year,1,21);
             var count = result.Count;
             // Assert
             Assert.IsNotNull(result);

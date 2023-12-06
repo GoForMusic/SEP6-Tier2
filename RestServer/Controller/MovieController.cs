@@ -25,14 +25,16 @@ namespace RestServer.Controller
         /// Method to return a list of 21 movies based on year
         /// </summary>
         /// <param name="year">the year</param>
+        /// <param name="pageNumber">Use for pagination</param>
+        /// <param name="pageSize">Default it will be 21 as empty query otherwise user can use is own</param>
         /// <returns>list of 21 movies based on year</returns>
         [HttpGet]
         [Route("/movies/year/{year}")]
-        public async Task<ActionResult<List<Movie>>> FilterMoviesByYear(int year)
+        public async Task<ActionResult<List<Movie>>> FilterMoviesByYear(int year,[FromQuery] int pageNumber,[FromQuery] int pageSize)
         {
             try
             {
-                ICollection<Movie> movies = await _service.FilterMoviesByYear(year);
+                ICollection<Movie> movies = await _service.FilterMoviesByYear(year,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
                 return Ok(movies);
             }
             catch (Exception e)
@@ -48,14 +50,16 @@ namespace RestServer.Controller
         /// if sta is given, it will return 5 movies that start with sta
         /// </summary>
         /// <param name="title">the title of the movie</param>
+        /// <param name="pageNumber">Use for pagination</param>
+        /// <param name="pageSize">Default it will be 21 as empty query otherwise user can use is own</param>
         /// <returns></returns>
         [HttpGet]
         [Route("/movies/search/{title}")]
-        public async Task<ActionResult<List<Movie>>> SearchMovie(string title)
+        public async Task<ActionResult<List<Movie>>> SearchMovie(string title,[FromQuery] int pageNumber,[FromQuery] int pageSize)
         {
             try
             {
-                ICollection<Movie> movies = await _service.SearchMovie(title);
+                ICollection<Movie> movies = await _service.SearchMovie(title,pageNumber==0?1:pageNumber,pageSize==0?5:pageSize);
                 return Ok(movies);
             }
             catch (Exception e)
