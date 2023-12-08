@@ -34,7 +34,7 @@ namespace RestServer.Controller
         {
             try
             {
-                ICollection<Movie> movies = await _service.FilterMoviesByYear(year,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
+                ICollection<Movie> movies = await _service.FilterMoviesByYear(year,pageNumber==0?1:pageNumber,pageSize==0?20:pageSize);
                 return Ok(movies);
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace RestServer.Controller
                 Console.WriteLine(pageNumber + " " + pageSize);
                 // Check if pageNumber==0 than use default page that is 1
                 // Check if pageSize==0 than use 21 elements as default otherwise use the user input
-                ICollection<Ratings> movies = await _service.FilterMoviesByRating(rate,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
+                ICollection<Ratings> movies = await _service.FilterMoviesByRating(rate,pageNumber==0?1:pageNumber,pageSize==0?20:pageSize);
                 
                 
                 return Ok(movies);
