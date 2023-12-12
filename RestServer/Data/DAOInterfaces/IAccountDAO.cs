@@ -37,9 +37,20 @@ namespace RestServer.Data.DAOInterfaces
         public  Task<Message> GetHelloWorld();
         // Marty test
         public Task<Message> GetHelloWorld2();
+        /// <summary>
+        /// A Login Async method used mostly in tests
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public Task<Account> LoginAsync(string username, string password);
         public Task<Account> RegisterAccount(Account account);
 
-      
+        /// <summary>
+        /// A method that will update the user password to DB
+        /// </summary>
+        /// <param name="newAccount">New user obj from Tier1</param>
+        /// <returns></returns>
+        public Task AccountPasswordUpdate(Account newAccount);
     }
 }

@@ -119,6 +119,23 @@ namespace RestServer.Data.DAOImplementation
             return account;
         }
 
+        public async Task AccountPasswordUpdate(Account newAccount)
+        {
+            try
+            {
+                Account? accountToBeUpdated = await _context.Accounts.FirstAsync(c => c.UserName.Equals(newAccount.UserName));
+                var text = encryptPassword(newAccount.Password);
+                accountToBeUpdated.Password = text;
+                _context.Accounts.Update(accountToBeUpdated);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " " + e.StackTrace); // or log to file, etc.
+                throw; // re-throw the exception if you want it to continue up the stack
+            }
+        }
+
         private string encryptPassword(string passwordPlaintext)
         {
             string salt = BCrypt.Net.BCrypt.GenerateSalt(12);

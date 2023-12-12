@@ -169,7 +169,24 @@ namespace RestServer.Controller
             // await CacheUserAsync(user!);
         }
 
-        
+        /// <summary>
+        /// A path method to update the User password to DB
+        /// </summary>
+        /// <param name="account">New Account info</param>
+        /// <returns></returns>
+        [HttpPatch]
+        public async Task<ActionResult> AccountPasswordUpdate([FromBody] Account account)
+        {
+            try
+            {
+                await _service.AccountPasswordUpdate(account);
+                return Ok("Comment updated: " + account.Id);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }  
+        }
         
     }
 }

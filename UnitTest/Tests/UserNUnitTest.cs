@@ -115,4 +115,19 @@ public class UserNUnitTest
         
         Assert.ThrowsAsync<Exception>((async () => await _accountDao.LoginAsync("x","x")));
     }
+    
+    [Test]
+    public async virtual Task AccountPassordUpdate()
+    {
+        // Arrange
+        Account newAccount = new Account {UserName = "adrian",Password = "123"};
+        _context.Accounts.Add(newAccount);
+        await _context.SaveChangesAsync();
+        
+        // Act
+        await _accountDao.AccountPasswordUpdate(new Account { UserName = "adrian", Password = "1234" });
+        
+        //Assert
+        Assert.IsNotNull(_accountDao.LoginAsync("adrian", "1234"));
+    }
 }
