@@ -16,6 +16,7 @@ builder.Services.AddScoped<IMovieDAO, MovieDAO>();
 builder.Services.AddScoped<IAccountDAO, AccountDao>();
 builder.Services.AddScoped<IPeopleDAO, PeopleDAO>();
 builder.Services.AddScoped<ICommentDAO, CommentDAO>();
+builder.Services.AddScoped<IWatchListDAO, WatchListDAO>();
 
 //App settings
 AppSettings? appSettings = builder.Configuration.Get<AppSettings>(options =>
