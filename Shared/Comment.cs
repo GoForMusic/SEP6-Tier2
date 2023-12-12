@@ -19,7 +19,7 @@ public class Comment
     /// <summary>
     /// DateTime
     /// </summary>
-    public DateTime? date_posted { get; set; } = DateTime.Now;
+    public DateTime? date_posted { get; set; } = DateTime.UtcNow;
     /// <summary>
     /// Reference FK to Account who wrote the comment
     /// </summary>

@@ -21,7 +21,7 @@ public class CommentREST
     /// <summary>
     /// DateTime
     /// </summary>
-    public DateTime? date_posted { get; set; } = DateTime.Now;
+    public DateTime? date_posted { get; set; } = DateTime.UtcNow;
     public long account_id { get; set; }
     public long movie_id { get; set; }
 
