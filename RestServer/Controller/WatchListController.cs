@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestServer.Data.DAOInterfaces;
 using Shared;
+using Shared.SpecialCases;
 
 namespace RestServer.Controller;
 
@@ -34,12 +35,12 @@ public class WatchListController : ControllerBase
     /// <param name="pageSize">Default it will be 21 as empty query otherwise user can use is own</param>
     /// <returns>list of 21 movies based on year</returns>
     [HttpGet]
-    [Route("/{account_id}")]
-    public async Task<ActionResult<ICollection<Movie>>> GetMoviesFromWatchListByAccountID(int account_id,[FromQuery] int pageNumber,[FromQuery] int pageSize)
+    [Route("{account_id}")]
+    public async Task<ActionResult<ICollection<WatchList>>> GetMoviesFromWatchListByAccountID(int account_id,[FromQuery] int pageNumber,[FromQuery] int pageSize)
     {
         try
         {
-            ICollection<Movie> movies = await _service.GetMoviesWatchListByAccountID(account_id,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
+            ICollection<WatchList> movies = await _service.GetMoviesWatchListByAccountID(account_id,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
             return Ok(movies);
         }
         catch (Exception e)
@@ -50,13 +51,12 @@ public class WatchListController : ControllerBase
     }
     
     [HttpPost]
-    [Route("/")]
-    public async Task<ActionResult<ICollection<Movie>>> AddMovieToWatchList([FromBody] WatchList watchList)
+    public async Task<ActionResult> AddMovieToWatchList([FromBody] WatchListREST watchList)
     {
         try
         {
-            await _service.AddMovieToWatchList(watchList);
-            return Ok("Movie added successfully to WatchList");
+            WatchList element = await _service.AddMovieToWatchList(watchList);
+            return Ok(element);
         }
         catch (Exception e)
         {
@@ -66,12 +66,12 @@ public class WatchListController : ControllerBase
     }
     
     [HttpDelete]
-    [Route("/")]
-    public async Task<ActionResult<ICollection<Movie>>> DeleteMovieFromWatchList([FromBody] WatchList watchList)
+    [Route("{watchListID}")]
+    public async Task<ActionResult> DeleteMovieFromWatchList(int watchListID)
     {
         try
         {
-            await _service.RemoveMovieFromAWatchList(watchList);
+            await _service.RemoveMovieFromAWatchList(watchListID);
             return Ok("Movie removed from watch list.");
         }
         catch (Exception e)

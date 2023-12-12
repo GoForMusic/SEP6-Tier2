@@ -22,5 +22,5 @@ public class WatchList
     /// </summary>
     [Required]
     [ForeignKey("Account")]
-    public People account_id { get; set; }
+    public Account account_id { get; set; }
 }
