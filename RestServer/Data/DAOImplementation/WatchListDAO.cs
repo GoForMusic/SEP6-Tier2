@@ -22,13 +22,8 @@ public class WatchListDAO : IWatchListDAO
     {
         int recordsToSkip = (pageNumber - 1) * pageSize;
             
-        ICollection<Movie> movies = await _context.WatchLists.Include(w=>w.movie_id)
-            .Include(w=>w.account_id)
-            .Where(t => t.account_id.Id==account_id)
-            .Skip(recordsToSkip) // Skip the appropriate number of records
-            .Take(pageSize)      // Take the specified number of records for the page
-            .ToListAsync();
-        return movies;
+        
+        return null;
     }
     
     /// <inheritdoc />

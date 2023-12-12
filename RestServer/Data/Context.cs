@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared;
 using System.Numerics;
+using Npgsql;
 
 namespace RestServer.Data
 {
@@ -26,7 +27,6 @@ namespace RestServer.Data
 
         public Context(DbContextOptions<Context> options) : base(options)
         {
-            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
