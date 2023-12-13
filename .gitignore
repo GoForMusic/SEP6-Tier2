@@ -666,3 +666,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/RestServer/Data/DAOImplementation/RatingDAO.cs
+/RestServer/Data/DAOInterfaces/IRatingDAO.cs
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore
