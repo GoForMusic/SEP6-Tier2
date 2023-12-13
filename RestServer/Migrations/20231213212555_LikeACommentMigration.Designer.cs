@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestServer.Data;
@@ -11,9 +12,11 @@ using RestServer.Data;
 namespace RestServer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231213212555_LikeACommentMigration")]
+    partial class LikeACommentMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,9 +62,6 @@ namespace RestServer.Migrations
                         .HasColumnType("text");
 
                     b.Property<long>("Movie")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("NumberOfLikes")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("date_posted")

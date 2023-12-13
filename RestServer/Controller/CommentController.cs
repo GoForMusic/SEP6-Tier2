@@ -108,4 +108,46 @@ public class CommentController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    /// <summary>
+    /// Method to like a comment
+    /// </summary>
+    /// <param name="commentId"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [Route("{commentId}/likes")]
+    public async Task<ActionResult> LikeComment(long commentId)
+    {
+        try
+        {
+            await _service.LikeComment(commentId);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Method to unlike a comment
+    /// </summary>
+    /// <param name="commentId"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [Route("{commentId}/unlike")]
+    public async Task<ActionResult> UnlikeComment(long commentId)
+    {
+        try
+        {
+            await _service.UnlikeComment(commentId);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

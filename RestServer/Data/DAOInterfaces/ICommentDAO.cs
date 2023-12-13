@@ -32,4 +32,18 @@ public interface ICommentDAO
     /// </summary>
     /// <param name="element">New comment coming from REST</param>
     public Task UpdateElementAsync(CommentREST element);
+
+    /// <summary>
+    /// Method to like a comment
+    /// </summary>
+    /// <param name="movieID"></param>
+    /// <returns></returns>
+    public Task LikeComment(long movieID);
+
+    /// <summary>
+    /// Method to remove a like from a comment
+    /// </summary>
+    /// <param name="movieID"></param>
+    /// <returns></returns>
+    public Task UnlikeComment(long movieID);
 }
