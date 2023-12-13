@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Sockets;
 
 namespace Shared;
 
@@ -31,6 +32,10 @@ public class Comment
     [ForeignKey("Movie")]
     public Movie movie_id { get; set; }
 
+    /// <summary>
+    /// Amount of likes
+    /// </summary>
+    public long? NumberOfLikes { get; set; } = 0;
     public Comment()
     {
     }

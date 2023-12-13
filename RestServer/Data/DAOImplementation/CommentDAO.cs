@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestServer.Data.DAOInterfaces;
 using Shared;
@@ -110,7 +111,53 @@ public class CommentDAO : ICommentDAO
             throw; // re-throw the exception if you want it to continue up the stack
         }
     }
-    
+    /// <inheritdoc />
+    public async Task LikeComment(long movieID)
+    {
+        try
+        {
+            Comment comment = await _context.Comments.FirstAsync(t => t.Id == movieID);
+            if (comment.NumberOfLikes == null)
+            {
+                comment.NumberOfLikes = 1;
+            }
+            else
+            {
+                comment.NumberOfLikes += 1;
+            }
+            _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task UnlikeComment(long movieID)
+    {
+        try
+        {
+            Comment comment = await _context.Comments.FirstAsync(t => t.Id == movieID);
+            if (comment.NumberOfLikes == null)
+            {
+                return;
+            }
+            if (comment.NumberOfLikes == 0)
+            {
+                return;
+            }
+            comment.NumberOfLikes -= 1;
+            
+            _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     /// <summary>
     /// A private method that will convert the REST element to DAO element (SecurityISSUEE)
     /// </summary>
