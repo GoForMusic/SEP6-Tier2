@@ -150,6 +150,5 @@ namespace UnitTest.Tests
             Assert.AreEqual(3, result.Count);
             Assert.IsInstanceOf<List<Ratings>>(result);
         }
-
     }
 }
