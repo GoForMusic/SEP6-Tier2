@@ -98,5 +98,25 @@ namespace RestServer.Controller
                 return StatusCode(500, e.Message);
             }
         }
+
+        /// <summary>
+        /// A function to get a movie ID
+        /// </summary>
+        /// <param name="movieID">Movie PK</param>
+        [HttpGet]
+        [Route("/movie/{movieID}")]
+        public async Task<ActionResult<Movie>> GetMovieByID(int movieID)
+        {
+            try
+            {
+                Movie movieDetails = await _service.GetDataByMovieID(movieID);
+                return Ok(movieDetails);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

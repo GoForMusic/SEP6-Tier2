@@ -63,5 +63,11 @@ namespace RestServer.Data.DAOImplementation
 
             return ratingsList;
         }
+    
+        /// <inheritdoc />
+        public async Task<Movie> GetDataByMovieID(int movieID)
+        {
+            return await _context.Movies.FirstAsync(m => m.Id == movieID);
+        }
     }
 }

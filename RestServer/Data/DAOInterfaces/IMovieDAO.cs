@@ -31,5 +31,10 @@ namespace RestServer.Data.DAOInterfaces
         /// <param name="pageSize">And default will be 21 if the user will not specify in query</param>
         /// <returns></returns>
         public Task<List<Ratings>> FilterMoviesByRating(int rate,int pageNumber,int pageSize);
+        /// <summary>
+        /// A method that will get movie details by his ID
+        /// </summary>
+        /// <param name="movieID">Movie PK</param>
+        public Task<Movie> GetDataByMovieID(int movieID);
     }
 }
