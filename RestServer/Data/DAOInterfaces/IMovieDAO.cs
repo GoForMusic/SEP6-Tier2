@@ -35,6 +35,13 @@ namespace RestServer.Data.DAOInterfaces
         /// A method that will get movie details by his ID
         /// </summary>
         /// <param name="movieID">Movie PK</param>
-        public Task<Movie> GetDataByMovieID(int movieID);
+        public Task<Movie> GetDataByMovieID(long movieID);
+
+        /// <summary>
+        /// Method to add a rating and recalculate the value
+        /// </summary>
+        /// <param name="rateValue"></param>
+        /// <returns></returns>
+        public Task AddRating(int rateValue, long movieId);
     }
 }
