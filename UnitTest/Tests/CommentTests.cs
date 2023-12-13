@@ -106,6 +106,33 @@ public class CommentTests
         // Assert
         Assert.That(result.Body, Is.EqualTo("Update Test Works"));
     }
+
+    [Test]
+    public async Task CheckIfTestIsIncrementing()
+    {
+        // Arrange
+        await ArrangeDataToDB();
+
+        // Act
+        _commentDao.LikeComment(1);
+
+        // Assert
+        var comment = await _commentDao.GetElementAsync(1);
+        Assert.That(comment.NumberOfLikes, Is.EqualTo(1));
+    }
+
+    [Test]
+    public async Task CheckIfLikeIsDecrementing()
+    {
+        //Arrange
+        await ArrangeDataToDB();
+        _commentDao.LikeComment(1);
+        //Act
+        _commentDao.UnlikeComment(1);
+        var comment = await _commentDao.GetElementAsync(1);
+        Assert.That(comment.NumberOfLikes, Is.EqualTo(0));
+        //Assert
+    }
     
     private async Task ArrangeDataToDB()
     {
