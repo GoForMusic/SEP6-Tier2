@@ -65,9 +65,36 @@ namespace RestServer.Data.DAOImplementation
         }
     
         /// <inheritdoc />
-        public async Task<Movie> GetDataByMovieID(int movieID)
+        public async Task<Movie> GetDataByMovieID(long movieID)
         {
             return await _context.Movies.FirstAsync(m => m.Id == movieID);
         }
+
+
+        /// <inheritdoc />
+        public async Task AddRating(int rateValue, long movieId)
+        {
+
+            try
+            {
+                Ratings theRating = await _context.Ratings.FirstAsync(t => t.movie_id.Id == movieId);
+
+                float sumOfRatings = theRating.RatingValue * theRating.Votes;
+                sumOfRatings = sumOfRatings + rateValue;
+                float finalRating = sumOfRatings / (theRating.Votes + 1);
+
+                theRating.RatingValue = finalRating;
+                theRating.Votes += 1;
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception a)
+            {
+                Console.WriteLine(a);
+                throw;
+            }
+            
+        }
     }
 }
+

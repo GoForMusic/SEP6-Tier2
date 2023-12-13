@@ -12,6 +12,7 @@ namespace RestServer.Controller
         /// </summary>
         private readonly IMovieDAO _service;
 
+
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
@@ -105,7 +106,7 @@ namespace RestServer.Controller
         /// <param name="movieID">Movie PK</param>
         [HttpGet]
         [Route("/movie/{movieID}")]
-        public async Task<ActionResult<Movie>> GetMovieByID(int movieID)
+        public async Task<ActionResult<Movie>> GetMovieByID(long movieID)
         {
             try
             {
@@ -116,6 +117,22 @@ namespace RestServer.Controller
             {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("/movie/{movieID}/AddRating")]
+        public async Task<ActionResult> AddRating(long movieID, int ratingValue)
+        {
+            try
+            {
+                await _service.AddRating(ratingValue, movieID);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }
