@@ -53,6 +53,17 @@ public class StarsTests
         Assert.AreEqual(4,result4.Count);
     }
     
+    [Test]
+    public async Task GetStartNameFromStarts()
+    {
+        //Arrange
+        await ArrangeDataToDB();
+        //Act
+        var result1 = await _starsDao.GetStartsFromAMovie(1);
+        //Assert
+        Assert.AreEqual("Adrian",result1[0].person_id.Name);
+    }
+    
     private async Task ArrangeDataToDB()
     {
         var movies = new List<Movie>

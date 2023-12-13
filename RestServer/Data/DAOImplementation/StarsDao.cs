@@ -22,6 +22,7 @@ public class StarsDao : IStarsDAO
     {
         return _context.Stars
             .Include(s => s.movie_id)
+            .Include(s=>s.person_id)
             .Where(s => s.movie_id.Id == movieid)
             .ToListAsync();
     }

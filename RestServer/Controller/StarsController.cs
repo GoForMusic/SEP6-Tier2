@@ -6,7 +6,7 @@ namespace RestServer.Controller;
 
 [ApiController]
 [Route("[controller]")]
-public class StartsController : ControllerBase
+public class StarsController : ControllerBase
 {
     /// <summary>
     /// Data access instance
@@ -17,7 +17,7 @@ public class StartsController : ControllerBase
     /// Constructor with injection of DataAccess
     /// </summary>
     /// <param name="service"></param>
-    public StartsController(IStarsDAO service)
+    public StarsController(IStarsDAO service)
     {
         _service = service;
     }
@@ -27,7 +27,7 @@ public class StartsController : ControllerBase
     /// </summary>
     /// <param name="movieId">Movie PK</param>
     [HttpGet]
-    [Route("{}")]
+    [Route("{movieId}")]
     public async Task<ActionResult<List<Stars>>> GetStartsByMovie(long movieId)
     {
         try
