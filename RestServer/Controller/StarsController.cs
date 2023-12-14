@@ -41,4 +41,25 @@ public class StarsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    /// <summary>
+    /// A method that will return avg ratings for all the movies where the actorId was played
+    /// </summary>
+    /// <param name="actorId">People ID</param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("/{actorId}/avgRating")]
+    public async Task<ActionResult<List<Ratings>>> AvgMoviesForActor(long actorId)
+    {
+        try
+        {
+            List<Ratings> movies = await _service.GetDirectorsByName(actorId);
+            return Ok(movies);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

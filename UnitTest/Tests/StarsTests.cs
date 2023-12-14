@@ -64,6 +64,8 @@ public class StarsTests
         Assert.That(result1[0].person_id.Name, Is.EqualTo("Adrian"));
     }
     
+    
+    
     private async Task ArrangeDataToDb()
     {
         var movies = new List<Movie>

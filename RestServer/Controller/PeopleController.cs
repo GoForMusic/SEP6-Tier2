@@ -22,7 +22,11 @@ namespace RestServer.Controller
             _service = service;
         }
 
-
+        /// <summary>
+        /// A method that will a list of directors and their movies
+        /// </summary>
+        /// <param name="name">Director name</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("/directors/search/{name}")]
         public async Task<ActionResult<ICollection<Directors>>> SearchByDirectorsName(string name)
