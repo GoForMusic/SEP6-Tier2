@@ -4,6 +4,8 @@ using RestServer.Data;
 using RestServer.Data.DAOImplementation;
 using RestServer.Data.DAOInterfaces;
 
+// Migrate to GitHUB test if automatically updated in both devops and github
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
