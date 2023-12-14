@@ -37,7 +37,8 @@ namespace Shared
         /// </summary>
         public Stars()
         {
-
+            movie_id = new Movie();
+            person_id = new People();
         }
     }
 }

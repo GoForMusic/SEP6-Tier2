@@ -10,14 +10,14 @@ namespace RestServer.Controller
         /// <summary>
         /// Data access instance
         /// </summary>
-        private readonly IMovieDAO _service;
+        private readonly IMovieDao _service;
 
 
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
         /// <param name="service"></param>
-        public MovieController(IMovieDAO service)
+        public MovieController(IMovieDao service)
         {
             _service = service;
         }
@@ -103,14 +103,14 @@ namespace RestServer.Controller
         /// <summary>
         /// A function to get a movie ID
         /// </summary>
-        /// <param name="movieID">Movie PK</param>
+        /// <param name="movieId">Movie PK</param>
         [HttpGet]
         [Route("/movie/{movieID}")]
-        public async Task<ActionResult<Movie>> GetMovieByID(long movieID)
+        public async Task<ActionResult<Movie>> GetMovieById(long movieId)
         {
             try
             {
-                Movie movieDetails = await _service.GetDataByMovieID(movieID);
+                Movie movieDetails = await _service.GetDataByMovieId(movieId);
                 return Ok(movieDetails);
             }
             catch (Exception e)
@@ -122,11 +122,11 @@ namespace RestServer.Controller
 
         [HttpPost]
         [Route("/movie/{movieID}/AddRating")]
-        public async Task<ActionResult> AddRating(long movieID, int ratingValue)
+        public async Task<ActionResult> AddRating(long movieId, int ratingValue)
         {
             try
             {
-                await _service.AddRating(ratingValue, movieID);
+                await _service.AddRating(ratingValue, movieId);
                 return Ok();
             }
             catch (Exception e)

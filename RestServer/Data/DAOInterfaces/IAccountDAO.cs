@@ -5,7 +5,7 @@ namespace RestServer.Data.DAOInterfaces
     /// <summary>
     /// Class where methods to interact with db can be found
     /// </summary>
-    public interface IAccountDAO
+    public interface IAccountDao
     {
         /// <summary>
         /// Method to add async an account to db

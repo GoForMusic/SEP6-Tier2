@@ -3,14 +3,13 @@ using Shared.SpecialCases;
 
 namespace RestServer.Data.DAOInterfaces;
 
-public interface ICommentDAO
+public interface ICommentDao
 {
     /// <summary>
     /// A async method that will return a list of comments using the movieID FK from DAO
     /// </summary>
-    /// <param name="movieID">Movie ID FK</param>
-    /// <returns>ICollection<Comment></returns>
-    public Task<ICollection<Comment>> GetListAsync(int movieID);
+    /// <param name="movieId">Movie ID FK</param>
+    public Task<ICollection<Comment>> GetListAsync(int movieId);
     /// <summary>
     /// A get element that will return only one comment by his id
     /// </summary>
@@ -36,14 +35,14 @@ public interface ICommentDAO
     /// <summary>
     /// Method to like a comment
     /// </summary>
-    /// <param name="movieID"></param>
+    /// <param name="movieId"></param>
     /// <returns></returns>
-    public Task LikeComment(long movieID);
+    public Task LikeComment(long movieId);
 
     /// <summary>
     /// Method to remove a like from a comment
     /// </summary>
-    /// <param name="movieID"></param>
+    /// <param name="movieId"></param>
     /// <returns></returns>
-    public Task UnlikeComment(long movieID);
+    public Task UnlikeComment(long movieId);
 }

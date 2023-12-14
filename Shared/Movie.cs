@@ -24,5 +24,11 @@ namespace Shared
         /// Decimal because in the database it is numeric
         /// </summary>
         public int? Year { get; set; }
+
+        public Movie()
+        {
+            Title = string.Empty;
+        }
+        
     }
 }

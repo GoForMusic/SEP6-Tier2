@@ -10,6 +10,7 @@ public class WatchList
     /// </summary>
     [Key]
     public long? Id { get; set; }
+
     /// <summary>
     /// The id of the movie
     /// </summary>
@@ -23,4 +24,12 @@ public class WatchList
     [Required]
     [ForeignKey("Account")]
     public Account account_id { get; set; }
+
+    public WatchList()
+    {
+        // Set default values for the properties here
+        movie_id = new Movie(); // Example initialization, replace with appropriate logic
+        account_id = new Account(); // Example initialization, replace with appropriate logic
+    }
+
 }

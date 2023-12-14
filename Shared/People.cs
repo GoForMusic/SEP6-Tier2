@@ -33,7 +33,7 @@ namespace Shared
         /// </summary>
         public People()
         {
-
+            Name = string.Empty;
         }
     }
 }

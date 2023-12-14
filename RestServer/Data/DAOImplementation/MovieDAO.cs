@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RestServer.Data.DAOInterfaces;
 using Shared;
 
 namespace RestServer.Data.DAOImplementation
 {
-    public class MovieDAO : IMovieDAO
+    public class MovieDao : IMovieDao
     {
 
         private readonly Context _context;
@@ -14,7 +13,7 @@ namespace RestServer.Data.DAOImplementation
         /// Constructor using injection
         /// </summary>
         /// <param name="context"></param>
-        public MovieDAO(Context context)
+        public MovieDao(Context context)
         {
             _context = context;
         }
@@ -24,11 +23,10 @@ namespace RestServer.Data.DAOImplementation
         {
             int recordsToSkip = (pageNumber - 1) * pageSize;
             
-            List<Movie> movies = await _context.Movies.Where(t => t.Title.ToLower().StartsWith(title.ToLower()))
+            List<Movie> movies = await _context.Movies!.Where(t => t.Title.ToLower().StartsWith(title.ToLower()))
                 .Skip(recordsToSkip) // Skip the appropriate number of records
                 .Take(pageSize)      // Take the specified number of records for the page
                 .ToListAsync();
-            var t = movies.Count;
             return movies;
         }
 
@@ -38,7 +36,7 @@ namespace RestServer.Data.DAOImplementation
             // Calculate how many records to skip based on the page number and page size
             int recordsToSkip = (pageNumber - 1) * pageSize;
             
-            List<Movie> movies = await _context.Movies.Where(m=>m.Year==year)
+            List<Movie> movies = await _context.Movies!.Where(m=>m.Year==year)
                 .Skip(recordsToSkip) // Skip the appropriate number of records
                 .Take(pageSize)      // Take the specified number of records for the page
                 .ToListAsync();
@@ -53,7 +51,7 @@ namespace RestServer.Data.DAOImplementation
             // Calculate how many records to skip based on the page number and page size
             int recordsToSkip = (pageNumber - 1) * pageSize;
             
-            List<Ratings> ratingsList = await _context.Ratings
+            List<Ratings> ratingsList = await _context.Ratings!
                 .Where(r => r.RatingValue >= rate && r.RatingValue < upperBound)
                 .Include(r => r.movie_id)
                 .OrderByDescending(r => r.RatingValue)
@@ -65,9 +63,9 @@ namespace RestServer.Data.DAOImplementation
         }
     
         /// <inheritdoc />
-        public async Task<Movie> GetDataByMovieID(long movieID)
+        public async Task<Movie> GetDataByMovieId(long movieId)
         {
-            return await _context.Movies.FirstAsync(m => m.Id == movieID);
+            return await _context.Movies!.FirstAsync(m => m.Id == movieId);
         }
 
 
@@ -77,7 +75,7 @@ namespace RestServer.Data.DAOImplementation
 
             try
             {
-                Ratings theRating = await _context.Ratings.FirstAsync(t => t.movie_id.Id == movieId);
+                Ratings theRating = await _context.Ratings!.FirstAsync(t => t.movie_id.Id == movieId);
 
                 float sumOfRatings = theRating.RatingValue * theRating.Votes;
                 sumOfRatings = sumOfRatings + rateValue;

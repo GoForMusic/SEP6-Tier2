@@ -27,5 +27,6 @@ public class CommentREST
 
     public CommentREST()
     {
+        Body = string.Empty;
     }
 }

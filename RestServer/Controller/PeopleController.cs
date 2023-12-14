@@ -11,13 +11,13 @@ namespace RestServer.Controller
         /// <summary>
         /// Data access instance
         /// </summary>
-        private readonly IPeopleDAO _service;
+        private readonly IPeopleDao _service;
 
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
         /// <param name="service"></param>
-        public PeopleController(IPeopleDAO service)
+        public PeopleController(IPeopleDao service)
         {
             _service = service;
         }

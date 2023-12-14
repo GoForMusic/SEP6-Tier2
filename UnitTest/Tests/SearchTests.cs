@@ -16,24 +16,24 @@ namespace UnitTest.Tests
         /// <summary>
         /// Instance of the context
         /// </summary>
-        private Context _context;
+        private Context? _context;
 
         /// <summary>
         /// Instance of the interface of IMovieDAO
         /// </summary>
-        private IMovieDAO _movieDAO;
+        private IMovieDao? _movieDao;
 
         [SetUp]
         public void Setup()
         {
             ServiceCollection services = new ServiceCollection();
-            services.AddScoped<IMovieDAO, MovieDAO>();
+            services.AddScoped<IMovieDao, MovieDao>();
             services.AddDbContextAsInMemoryDatabase<Context>();
 
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             _context = serviceProvider.GetRequiredService<Context>();
-            _movieDAO = serviceProvider.GetRequiredService<IMovieDAO>();
+            _movieDao = serviceProvider.GetRequiredService<IMovieDao>();
         }
 
         /// <summary>
@@ -54,16 +54,16 @@ namespace UnitTest.Tests
                 new Movie {Title = "star wars4", Year = 2000},
                 new Movie {Title = "star wars5", Year = 2000}
             };
-            _context.Movies.AddRange(movies);
-            await _context.SaveChangesAsync();
+            _context?.Movies!.AddRange(movies);
+            await _context?.SaveChangesAsync()!;
 
             // Act
-            var result = await _movieDAO.SearchMovie(searchTerm,1,5);
+            var result = await _movieDao?.SearchMovie(searchTerm,1,5)!;
 
             var count = result.Count;
 
             // Assert
-            Assert.AreEqual(5, count);
+            Assert.That(count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -105,14 +105,14 @@ namespace UnitTest.Tests
                 new Movie {Title = "star wars24", Year = 2000},
                 new Movie {Title = "star wars25", Year = 2000}
             };
-            _context.Movies.AddRange(movies);
-            await _context.SaveChangesAsync();
+            _context?.Movies!.AddRange(movies);
+            await _context?.SaveChangesAsync()!;
             // Act
-            var result = await _movieDAO.FilterMoviesByYear(year,1,21);
+            var result = await _movieDao?.FilterMoviesByYear(year,1,21)!;
             var count = result.Count;
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(21, count);
+            Assert.That(count, Is.EqualTo(21));
             Assert.IsInstanceOf<List<Movie>>(result);
             
         }
@@ -128,26 +128,26 @@ namespace UnitTest.Tests
                 new Movie {Id = 4,Title = "star wars4", Year = 2000}
             };
             
-            _context.Movies.AddRange(movies);
-            await _context.SaveChangesAsync();
-            var movies_from_db = await _context.Movies.ToListAsync();
+            _context?.Movies!.AddRange(movies);
+            await _context?.SaveChangesAsync()!;
+            var moviesFromDb = await _context.Movies!.ToListAsync();
             
             var rating = new List<Ratings>
             {
-                new Ratings {RatingValue = 1,Votes = 1,movie_id = movies_from_db[0]},
-                new Ratings {RatingValue = 1.5f,Votes = 1,movie_id = movies_from_db[1]},
-                new Ratings {RatingValue = 1.9f,Votes = 1,movie_id = movies_from_db[2]},
-                new Ratings {RatingValue = 2,Votes = 3,movie_id = movies_from_db[3]}
+                new Ratings {RatingValue = 1,Votes = 1,movie_id = moviesFromDb[0]},
+                new Ratings {RatingValue = 1.5f,Votes = 1,movie_id = moviesFromDb[1]},
+                new Ratings {RatingValue = 1.9f,Votes = 1,movie_id = moviesFromDb[2]},
+                new Ratings {RatingValue = 2,Votes = 3,movie_id = moviesFromDb[3]}
             };
             
-            await _context.Ratings.AddRangeAsync(rating);
+            await _context.Ratings!.AddRangeAsync(rating);
             await _context.SaveChangesAsync();
             // Act
-            var result = await _movieDAO.FilterMoviesByRating(1,1,21);
+            var result = await _movieDao?.FilterMoviesByRating(1,1,21)!;
             
             
             // Assert
-            Assert.AreEqual(3, result.Count);
+            Assert.That(result.Count, Is.EqualTo(3));
             Assert.IsInstanceOf<List<Ratings>>(result);
         }
     }

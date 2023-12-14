@@ -38,5 +38,8 @@ public class Comment
     public long? NumberOfLikes { get; set; } = 0;
     public Comment()
     {
+        Body = string.Empty;
+        WrittenBy = new Account();
+        movie_id = new Movie();
     }
 }

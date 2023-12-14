@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestServer.Data.DAOInterfaces;
 using Shared;
@@ -6,24 +5,24 @@ using Shared.SpecialCases;
 
 namespace RestServer.Data.DAOImplementation;
 
-public class CommentDAO : ICommentDAO
+public class CommentDao : ICommentDao
 {
     private readonly Context _context;
 
-    public CommentDAO(Context _context)
+    public CommentDao(Context context)
     {
-        this._context = _context;
+        this._context = context;
     }
     
     /// <inheritdoc />
-    public async Task<ICollection<Comment>> GetListAsync(int movieID)
+    public async Task<ICollection<Comment>> GetListAsync(int movieId)
     {
         try
         {
-            return await _context.Comments
+            return await _context.Comments!
                 .Include(c=>c.movie_id)
                 .Include(c=>c.WrittenBy)
-                .Where(t => t.movie_id.Id == movieID)
+                .Where(t => t.movie_id.Id == movieId)
                 .OrderBy(c=>c.date_posted)
                 .ToListAsync();
         }
@@ -40,7 +39,7 @@ public class CommentDAO : ICommentDAO
         try
         {
             //kinda mess????
-            return await _context.Comments
+            return await _context.Comments!
                 .Include(c=>c.WrittenBy)
                 .Include(c=>c.movie_id)
                 .FirstAsync(t=>t.Id==id);
@@ -58,10 +57,10 @@ public class CommentDAO : ICommentDAO
         try
         {
             Comment added = new Comment();
-            ConvertToCommentObj(added,element);
-            added.WrittenBy = await _context.Accounts.FirstAsync(a=>a.Id==element.account_id);
-            added.movie_id = await _context.Movies.FirstAsync(m => m.Id == element.movie_id);
-            await _context.Comments.AddAsync(added);
+            await ConvertToCommentObj(added,element);
+            added.WrittenBy = await _context.Accounts!.FirstAsync(a=>a.Id==element.account_id);
+            added.movie_id = await _context.Movies!.FirstAsync(m => m.Id == element.movie_id);
+            await _context.Comments!.AddAsync(added);
             await _context.SaveChangesAsync();
             return added;
         }
@@ -78,13 +77,13 @@ public class CommentDAO : ICommentDAO
     {
         try
         {
-            Comment? existing = await _context.Comments.FirstAsync(c=>c.Id==id);
+            Comment? existing = await _context.Comments!.FirstAsync(c=>c.Id==id);
             if (existing is null)
             {
                 throw new Exception($"Could not find Comment with id {id}. Nothing was deleted");
             }
 
-            _context.Comments.Remove(existing);
+            _context.Comments!.Remove(existing);
             await _context.SaveChangesAsync();
         }catch (Exception e)
         {
@@ -98,11 +97,11 @@ public class CommentDAO : ICommentDAO
     {
         try
         {
-            Comment? commentToBeUpdated = await _context.Comments.FirstAsync(c => c.Id == element.Id);
+            Comment commentToBeUpdated = await _context.Comments!.FirstAsync(c => c.Id == element.Id);
             await ConvertToCommentObj(commentToBeUpdated,element);
-            commentToBeUpdated.WrittenBy = await _context.Accounts.FirstAsync(a => a.Id == element.account_id);
-            commentToBeUpdated.movie_id = await _context.Movies.FirstAsync(m => m.Id == element.movie_id);
-            _context.Comments.Update(commentToBeUpdated);
+            commentToBeUpdated.WrittenBy = await _context.Accounts!.FirstAsync(a => a.Id == element.account_id);
+            commentToBeUpdated.movie_id = await _context.Movies!.FirstAsync(m => m.Id == element.movie_id);
+            _context.Comments!.Update(commentToBeUpdated);
             await _context.SaveChangesAsync();
         }
         catch (Exception e)
@@ -112,11 +111,11 @@ public class CommentDAO : ICommentDAO
         }
     }
     /// <inheritdoc />
-    public async Task LikeComment(long movieID)
+    public async Task LikeComment(long movieId)
     {
         try
         {
-            Comment comment = await _context.Comments.FirstAsync(t => t.Id == movieID);
+            Comment comment = await _context.Comments!.FirstAsync(t => t.Id == movieId);
             if (comment.NumberOfLikes == null)
             {
                 comment.NumberOfLikes = 1;
@@ -125,7 +124,7 @@ public class CommentDAO : ICommentDAO
             {
                 comment.NumberOfLikes += 1;
             }
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -134,11 +133,11 @@ public class CommentDAO : ICommentDAO
         }
     }
 
-    public async Task UnlikeComment(long movieID)
+    public async Task UnlikeComment(long movieId)
     {
         try
         {
-            Comment comment = await _context.Comments.FirstAsync(t => t.Id == movieID);
+            Comment comment = await _context.Comments!.FirstAsync(t => t.Id == movieId);
             if (comment.NumberOfLikes == null)
             {
                 return;
@@ -149,7 +148,7 @@ public class CommentDAO : ICommentDAO
             }
             comment.NumberOfLikes -= 1;
             
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -161,12 +160,14 @@ public class CommentDAO : ICommentDAO
     /// <summary>
     /// A private method that will convert the REST element to DAO element (SecurityISSUEE)
     /// </summary>
+    /// <param name="comment">Object out</param>
     /// <param name="element">CommentREST object</param>
     /// <returns>Comment Object</returns>
-    private async Task ConvertToCommentObj(Comment comment,CommentREST element)
+    private Task ConvertToCommentObj(Comment comment,CommentREST element)
     {
         comment.Body = element.Body;
         comment.date_posted = element.date_posted;
+        return Task.CompletedTask;
     }
     
 }
