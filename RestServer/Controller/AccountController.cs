@@ -16,13 +16,13 @@ namespace RestServer.Controller
         /// <summary>
         /// Data access instance
         /// </summary>
-        private readonly IAccountDAO _service;
+        private readonly IAccountDao _service;
 
         /// <summary>
         /// Constructor with injection of DataAccess
         /// </summary>
         /// <param name="service"></param>
-        public AccountController(IAccountDAO service)
+        public AccountController(IAccountDao service)
         {
             _service = service;
         }
@@ -143,13 +143,12 @@ namespace RestServer.Controller
                 return StatusCode(500, e.Message);
             }
         }
-        
+
         /// <summary>
         /// Log in with userName and password
-        /// </summary>
-        /// <param name="username">username</param>
-        /// <param name="password">password</param>
+        /// <param name="requestLogin"></param>
         /// <returns></returns>
+        /// </summary>
         [HttpPost]
         [Route("login")]
         // login user

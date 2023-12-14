@@ -12,12 +12,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IMovieDAO, MovieDAO>();
-builder.Services.AddScoped<IAccountDAO, AccountDao>();
-builder.Services.AddScoped<IPeopleDAO, PeopleDAO>();
-builder.Services.AddScoped<ICommentDAO, CommentDAO>();
-builder.Services.AddScoped<IWatchListDAO, WatchListDAO>();
-builder.Services.AddScoped<IStarsDAO, StarsDao>();
+builder.Services.AddScoped<IMovieDao, MovieDao>();
+builder.Services.AddScoped<IAccountDao, AccountDao>();
+builder.Services.AddScoped<IPeopleDao, PeopleDao>();
+builder.Services.AddScoped<ICommentDao, CommentDao>();
+builder.Services.AddScoped<IWatchListDao, WatchListDao>();
+builder.Services.AddScoped<IStarsDao, StarsDao>();
 
 //App settings
 AppSettings? appSettings = builder.Configuration.Get<AppSettings>(options =>

@@ -11,5 +11,5 @@ public class AppSettings
     /// DATABASE connection string (host/user/pass/db)
     /// </summary>
     [Required]
-    public static string DATABASE_CONNECTION_STRING { get; private set; }
+    public static string? DATABASE_CONNECTION_STRING { get; private set; }
 }

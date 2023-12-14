@@ -34,6 +34,8 @@ namespace Shared
         /// Empty constructor
         /// </summary>
         public Ratings()
-        {}
+        {
+            movie_id = new Movie();
+        }
     }
 }

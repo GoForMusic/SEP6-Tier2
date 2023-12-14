@@ -1,4 +1,3 @@
-using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using RestServer.Data.DAOInterfaces;
 using Shared;
@@ -6,7 +5,7 @@ using Shared.SpecialCases;
 
 namespace RestServer.Data.DAOImplementation;
 
-public class WatchListDAO : IWatchListDAO
+public class WatchListDao : IWatchListDao
 {
     private readonly Context _context;
 
@@ -14,19 +13,19 @@ public class WatchListDAO : IWatchListDAO
     /// Constructor using injection
     /// </summary>
     /// <param name="context"></param>
-    public WatchListDAO(Context context)
+    public WatchListDao(Context context)
     {
         _context = context;
     }
 
     /// <inheritdoc />
-    public async Task<List<WatchList>> GetMoviesWatchListByAccountID(int account_id, int pageNumber, int pageSize)
+    public async Task<List<WatchList>> GetMoviesWatchListByAccountId(int accountId, int pageNumber, int pageSize)
     {
         int recordsToSkip = (pageNumber - 1) * pageSize;
             
-        List<WatchList> watchLists= await _context.WatchLists.Include(w=>w.account_id)
+        List<WatchList> watchLists= await _context.WatchLists!.Include(w=>w.account_id)
             .Include(w=>w.movie_id)
-            .Where(w=>w.account_id.Id==account_id)
+            .Where(w=>w.account_id.Id==accountId)
             .Skip(recordsToSkip) // Skip the appropriate number of records
             .Take(pageSize)      // Take the specified number of records for the page
             .ToListAsync();
@@ -40,7 +39,7 @@ public class WatchListDAO : IWatchListDAO
         try
         {
             //Check if the movie is already there
-            var existingEntry = await _context.WatchLists
+            var existingEntry = await _context.WatchLists!
                 .FirstOrDefaultAsync(w => w.account_id.Id == addedMovie.account_id && w.movie_id.Id == addedMovie.movie_id);
 
             if (existingEntry != null)
@@ -49,9 +48,9 @@ public class WatchListDAO : IWatchListDAO
             }
             
             WatchList added = new WatchList();
-            added.account_id = await _context.Accounts.FirstAsync(a=>a.Id==addedMovie.account_id);
-            added.movie_id = await _context.Movies.FirstAsync(m => m.Id == addedMovie.movie_id);
-            await _context.WatchLists.AddAsync(added);
+            added.account_id = await _context.Accounts!.FirstAsync(a=>a.Id==addedMovie.account_id);
+            added.movie_id = await _context.Movies!.FirstAsync(m => m.Id == addedMovie.movie_id);
+            await _context.WatchLists!.AddAsync(added);
             await _context.SaveChangesAsync();
             return added;
         }
@@ -67,13 +66,13 @@ public class WatchListDAO : IWatchListDAO
     {
         try
         {
-            WatchList? existing = await _context.WatchLists.FirstAsync(c=>c.Id==watchListId);
+            WatchList? existing = await _context.WatchLists!.FirstAsync(c=>c.Id==watchListId);
             if (existing is null)
             {
                 throw new Exception($"Could not find watchlist with id {watchListId}. Nothing was deleted");
             }
 
-            _context.WatchLists.Remove(existing);
+            _context.WatchLists!.Remove(existing);
             await _context.SaveChangesAsync();
         }catch (Exception e)
         {

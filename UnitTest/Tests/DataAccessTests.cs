@@ -4,7 +4,6 @@ using RestServer.Data;
 using RestServer.Data.DAOImplementation;
 using RestServer.Data.DAOInterfaces;
 using Shared;
-using UnitTest;
 using Assert = NUnit.Framework.Assert;
 
 
@@ -16,20 +15,20 @@ namespace UnitTest.Tests
     public class DataAccessTests
     {
         
-        private Context _context;
-        private IAccountDAO _accountDao;
+        private Context? _context;
+        private IAccountDao? _accountDao;
     
         [SetUp]
         public void Setup()
         {
             ServiceCollection services = new ServiceCollection();
-            services.AddScoped<IAccountDAO, AccountDao>();
+            services.AddScoped<IAccountDao, AccountDao>();
             services.AddDbContextAsInMemoryDatabase<Context>();
 
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
             _context = serviceProvider.GetRequiredService<Context>();
-            _accountDao = serviceProvider.GetRequiredService<IAccountDAO>();
+            _accountDao = serviceProvider.GetRequiredService<IAccountDao>();
         }
         
         /// <summary>
@@ -40,11 +39,11 @@ namespace UnitTest.Tests
         public async Task CreateAccount_ShouldAddAccountToDatabase()
         {
             Account account = new Account { UserName = "testuser", Password = "123"};
-            await _accountDao.CreateAccount(account);
+            await _accountDao?.CreateAccount(account)!;
 
             // Assert
-            Assert.AreEqual(1, _accountDao.GetAllAccounts().Result.Count);
-            Assert.AreEqual(account.UserName, _accountDao.GetAllAccounts().Result.Single().UserName);
+            Assert.That(_accountDao.GetAllAccounts().Result.Count, Is.EqualTo(1));
+            Assert.That(_accountDao.GetAllAccounts().Result.Single().UserName, Is.EqualTo(account.UserName));
         }
 
         /// <summary>
@@ -65,16 +64,16 @@ namespace UnitTest.Tests
 
             foreach (var account in accounts)
             {
-                await _accountDao.CreateAccount(account);
+                await _accountDao?.CreateAccount(account)!;
             }
-            await _context.SaveChangesAsync();
+            await _context?.SaveChangesAsync()!;
 
             // Act
-            var result = await _accountDao.GetAllAccounts();
+            var result = await _accountDao?.GetAllAccounts()!;
 
             // Assert
-            Assert.AreEqual(accounts.Count, result.Count);
-            Assert.AreEqual(accounts.Select(a => a.UserName), result.Select(a => a.UserName));
+            Assert.That(result.Count, Is.EqualTo(accounts.Count));
+            Assert.That(result.Select(a => a.UserName), Is.EqualTo(accounts.Select(a => a.UserName)));
         }
         
         /// <summary>
@@ -93,16 +92,16 @@ namespace UnitTest.Tests
             };
             foreach (var account in accounts)
             {
-                await _accountDao.CreateAccount(account);
+                await _accountDao?.CreateAccount(account)!;
             }
-            await _context.SaveChangesAsync();
+            await _context?.SaveChangesAsync()!;
 
             // Act
-            var result = await _accountDao.GetAccountWithUserName("testuser");
+            var result = _accountDao?.GetAccountWithUserName("testuser").Result.ToList()!;
 
             // Assert
             Assert.IsNotEmpty(result);
-            Assert.AreEqual("testuser", result.First().UserName);
+            Assert.That(result.First().UserName, Is.EqualTo("testuser"));
         }
 
         /// <summary>
@@ -121,16 +120,16 @@ namespace UnitTest.Tests
             };
             foreach (var account in accounts)
             {
-                await _accountDao.CreateAccount(account);
+                await _accountDao?.CreateAccount(account)!;
             }
-            await _context.SaveChangesAsync();
+            await _context?.SaveChangesAsync()!;
 
             // Act
-            var result = await _accountDao.GetAccountWithId(2);
+            var result = _accountDao?.GetAccountWithId(2).Result.ToList();
 
             // Assert
-            Assert.IsNotEmpty(result);
-            Assert.AreEqual(2, result.First().Id);
+            Assert.IsNotEmpty(result!);
+            Assert.That(result!.First().Id, Is.EqualTo(2));
         }
     }
 }

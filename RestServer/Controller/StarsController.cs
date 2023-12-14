@@ -11,13 +11,13 @@ public class StarsController : ControllerBase
     /// <summary>
     /// Data access instance
     /// </summary>
-    private readonly IStarsDAO _service;
+    private readonly IStarsDao _service;
 
     /// <summary>
     /// Constructor with injection of DataAccess
     /// </summary>
     /// <param name="service"></param>
-    public StarsController(IStarsDAO service)
+    public StarsController(IStarsDao service)
     {
         _service = service;
     }

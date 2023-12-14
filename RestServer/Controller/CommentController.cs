@@ -9,25 +9,24 @@ namespace RestServer.Controller;
 [Route("[controller]")]
 public class CommentController : ControllerBase
 {
-    private ICommentDAO _service;
+    private ICommentDao _service;
 
-    public CommentController(ICommentDAO _service)
+    public CommentController(ICommentDao service)
     {
-        this._service = _service;
+        this._service = service;
     }
-    
+
     /// <summary>
     /// A REST method that will return a list of comments from a movie
     /// </summary>
-    /// <param name="movieID">Movie FK id</param>
-    /// <returns>ICollection<Comment></returns>
+    /// <param name="movieId">Movie FK id</param>
     [HttpGet]
-    [Route("movie/{movieID}/comments")]
-    public async Task<ActionResult<ICollection<Comment>>> GetAll([FromRoute]int movieID)
+    [Route("movie/{movieId}/comments")]
+    public async Task<ActionResult<ICollection<Comment>>> GetAll([FromRoute]int movieId)
     {
         try
         {
-            ICollection<Comment> comments = await _service.GetListAsync(movieID);
+            ICollection<Comment> comments = await _service.GetListAsync(movieId);
             return Ok(comments);
         }
         catch (Exception e)
@@ -43,7 +42,7 @@ public class CommentController : ControllerBase
     /// <returns>Comment Object</returns>
     [HttpGet]
     [Route("{id}")]
-    public async Task<ActionResult<Comment>> GetByID([FromRoute] int id)
+    public async Task<ActionResult<Comment>> GetById([FromRoute] int id)
     {
         try
         {
@@ -63,7 +62,7 @@ public class CommentController : ControllerBase
     /// <returns>Element deleted message</returns>
     [HttpDelete]
     [Route("{id}")]
-    public async Task<ActionResult<Comment>> DeleteByID([FromRoute] int id)
+    public async Task<ActionResult<Comment>> DeleteById([FromRoute] int id)
     {
         try
         {

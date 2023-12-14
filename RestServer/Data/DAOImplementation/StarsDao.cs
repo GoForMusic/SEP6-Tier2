@@ -4,7 +4,7 @@ using Shared;
 
 namespace RestServer.Data.DAOImplementation;
 
-public class StarsDao : IStarsDAO
+public class StarsDao : IStarsDao
 {
     private readonly Context _context;
 
@@ -20,7 +20,7 @@ public class StarsDao : IStarsDAO
     /// <inheritdoc />
     public Task<List<Stars>> GetStartsFromAMovie(long movieid)
     {
-        return _context.Stars
+        return _context.Stars!
             .Include(s => s.movie_id)
             .Include(s=>s.person_id)
             .Where(s => s.movie_id.Id == movieid)

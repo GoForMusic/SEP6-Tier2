@@ -6,11 +6,11 @@ using Shared;
 namespace RestServer.Data.DAOImplementation
 {
     /// <inheritdoc />
-    public class AccountDao : IAccountDAO
+    public class AccountDao : IAccountDao
     {
 
         private readonly Context _context;
-        
+
         /// <summary>
         /// Constructor using injection
         /// </summary>
@@ -24,7 +24,7 @@ namespace RestServer.Data.DAOImplementation
         /// <inheritdoc />
         public async Task<Account> CreateAccount(Account account)
         {
-            EntityEntry<Account> newAccount = await _context.Accounts.AddAsync(account);
+            EntityEntry<Account> newAccount = await _context.Accounts!.AddAsync(account);
             await _context.SaveChangesAsync();
             return newAccount.Entity;
         }
@@ -33,7 +33,7 @@ namespace RestServer.Data.DAOImplementation
         public async Task<ICollection<Account>> GetAllAccounts()
         {
             ICollection<Account> accounts;
-            accounts = await _context.Accounts.ToListAsync();
+            accounts = await _context.Accounts!.ToListAsync();
             return accounts;
         }
 
@@ -42,7 +42,7 @@ namespace RestServer.Data.DAOImplementation
         {
             IEnumerable<Account> account;
             ICollection<Account> accounts;
-            accounts = await _context.Accounts.ToListAsync();
+            accounts = await _context.Accounts!.ToListAsync();
             account = accounts.Where(t => t.UserName == username);
             return account;
         }
@@ -52,81 +52,73 @@ namespace RestServer.Data.DAOImplementation
         {
             IEnumerable<Account> account;
             ICollection<Account> accounts;
-            accounts = await _context.Accounts.ToListAsync();
+            accounts = await _context.Accounts!.ToListAsync();
             account = accounts.Where(t => t.Id == id);
             return account;
         }
 
-        public async Task<Message> GetHelloWorld()
+        public Task<Message> GetHelloWorld()
         {
             Message myMessage = new Message();
             myMessage.MessageText = "Hello World";
-            return myMessage;
+            return Task.FromResult(myMessage);
         }
 
-        public async Task<Message> GetHelloWorld2()
+        public Task<Message> GetHelloWorld2()
         {
             Random random = new Random();
-    
-            string[] messages = { "Hello World", "Hola Mundo", "Bonjour le monde", "Hallo Welt" }; // Add your messages here
-    
+
+            string[] messages =
+                { "Hello World", "Hola Mundo", "Bonjour le monde", "Hallo Welt" }; // Add your messages here
+
             Message myMessage = new Message();
             myMessage.MessageText = messages[random.Next(0, messages.Length)];
-    
-            return myMessage;
+
+            return Task.FromResult(myMessage);
         }
 
         public async Task<Account> LoginAsync(string username, string password)
         {
             try
             {
-                Account account = await _context.Accounts.FirstAsync(t=>t.UserName==username);
-                if (validateHashPassword(password, account.Password)) return account;
+                Account account = await _context.Accounts!.FirstAsync(t => t.UserName == username);
+                if (ValidateHashPassword(password, account.Password)) return account;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Username/password incorrect!");
             }
 
-            return null;
+            return null!;
         }
 
         public async Task<Account> RegisterAccount(Account account)
         {
-            try
+            // Check if the username already exists in the database
+            bool isUsernameExists = await _context.Accounts!.AnyAsync(a => a.UserName == account.UserName);
+
+            if (isUsernameExists)
             {
-                // Check if the username already exists in the database
-                bool isUsernameExists = await _context.Accounts.AnyAsync(a => a.UserName == account.UserName);
-
-                if (isUsernameExists)
-                {
-                    throw new Exception("Username is already in use.");
-                }
-
-                var text = encryptPassword(account.Password);
-                account.Password = text;
-
-                EntityEntry<Account> add = await _context.Accounts.AddAsync(account);
-                await _context.SaveChangesAsync();
-                return add.Entity;
-            }
-            catch (Exception e)
-            {
-                // Handle or log the exception
-                throw; // Re-throw the exception to propagate it further if needed
+                throw new Exception("Username is already in use.");
             }
 
-            return account;
+            var text = EncryptPassword(account.Password);
+            account.Password = text;
+
+            EntityEntry<Account> add = await _context.Accounts!.AddAsync(account);
+            await _context.SaveChangesAsync();
+            return add.Entity;
+
         }
 
         public async Task AccountPasswordUpdate(Account newAccount)
         {
             try
             {
-                Account? accountToBeUpdated = await _context.Accounts.FirstAsync(c => c.UserName.Equals(newAccount.UserName));
-                var text = encryptPassword(newAccount.Password);
+                Account accountToBeUpdated =await _context.Accounts!.FirstAsync(c => c.UserName.Equals(newAccount.UserName));
+                var text = EncryptPassword(newAccount.Password);
                 accountToBeUpdated.Password = text;
-                _context.Accounts.Update(accountToBeUpdated);
+                _context.Accounts!.Update(accountToBeUpdated);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -136,57 +128,22 @@ namespace RestServer.Data.DAOImplementation
             }
         }
 
-        private string encryptPassword(string passwordPlaintext)
+        private string EncryptPassword(string passwordPlaintext)
         {
             string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             return BCrypt.Net.BCrypt.HashPassword(passwordPlaintext, salt);
         }
-        
-        private bool validateHashPassword(string passwordPlaintext, string passwordHash)
-        {
-            bool password_verified = false;
 
-            if(null == passwordHash || !passwordHash.StartsWith("$2a$"))
+        private bool ValidateHashPassword(string passwordPlaintext, string passwordHash)
+        {
+            bool passwordVerified;
+
+            if (null == passwordHash || !passwordHash.StartsWith("$2a$"))
                 throw new Exception("Invalid hash provided for comparison");
 
-            password_verified = BCrypt.Net.BCrypt.Verify(passwordPlaintext, passwordHash);
+            passwordVerified = BCrypt.Net.BCrypt.Verify(passwordPlaintext, passwordHash);
 
-            return password_verified;
+            return passwordVerified;
         }
-        
-        private void ValidatePassword(string password)
-        {
-            if (password.Length <= 3)
-            {
-                throw new Exception("Password must consist of more than 3 letters");
-            }
-        
-            bool capitalLetter = false;
-            bool digitLetter = false;
-
-            foreach (char c in password.ToCharArray())
-            {
-                if (!capitalLetter){
-                    if (Char.IsUpper(c)){
-                        capitalLetter =true;
-                    }
-                }
-
-                if (!digitLetter){
-                    if (Char.IsDigit(c)){
-                        digitLetter=true;
-                    }
-                }
-            }
-
-            if (!capitalLetter){
-                throw new Exception("Password needs to contain at least one uppercase letter");
-            }
-            if (!digitLetter){
-                throw new Exception("Password needs to contain at least one digit");
-            }
-        }
-
-        
     }
 }

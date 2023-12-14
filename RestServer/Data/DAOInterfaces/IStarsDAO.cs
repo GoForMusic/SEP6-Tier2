@@ -2,7 +2,7 @@ using Shared;
 
 namespace RestServer.Data.DAOInterfaces;
 
-public interface IStarsDAO
+public interface IStarsDao
 {
     /// <summary>
     /// A functions that will get a list of Starts for a movie

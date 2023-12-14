@@ -42,6 +42,8 @@ namespace Shared
         /// </summary>
         public Account()
         {
+            Password = string.Empty;
+            UserName = string.Empty;
         }
     }
 }

@@ -16,31 +16,31 @@ public class WatchListController : ControllerBase
     /// <summary>
     /// Data access instance
     /// </summary>
-    private readonly IWatchListDAO _service;
+    private readonly IWatchListDao _service;
 
     /// <summary>
     /// Constructor with injection of DataAccess
     /// </summary>
     /// <param name="service"></param>
-    public WatchListController(IWatchListDAO service)
+    public WatchListController(IWatchListDao service)
     {
         _service = service;
     }
-    
+
     /// <summary>
     /// Method to return a list of 21 movies based on year
     /// </summary>
-    /// <param name="year">the year</param>
+    /// <param name="accountId"></param>
     /// <param name="pageNumber">Use for pagination</param>
     /// <param name="pageSize">Default it will be 21 as empty query otherwise user can use is own</param>
     /// <returns>list of 21 movies based on year</returns>
     [HttpGet]
-    [Route("{account_id}")]
-    public async Task<ActionResult<ICollection<WatchList>>> GetMoviesFromWatchListByAccountID(int account_id,[FromQuery] int pageNumber,[FromQuery] int pageSize)
+    [Route("{accountId}")]
+    public async Task<ActionResult<ICollection<WatchList>>> GetMoviesFromWatchListByAccountId(int accountId,[FromQuery] int pageNumber,[FromQuery] int pageSize)
     {
         try
         {
-            ICollection<WatchList> movies = await _service.GetMoviesWatchListByAccountID(account_id,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
+            ICollection<WatchList> movies = await _service.GetMoviesWatchListByAccountId(accountId,pageNumber==0?1:pageNumber,pageSize==0?21:pageSize);
             return Ok(movies);
         }
         catch (Exception e)
@@ -67,11 +67,11 @@ public class WatchListController : ControllerBase
     
     [HttpDelete]
     [Route("{watchListID}")]
-    public async Task<ActionResult> DeleteMovieFromWatchList(int watchListID)
+    public async Task<ActionResult> DeleteMovieFromWatchList(int watchListId)
     {
         try
         {
-            await _service.RemoveMovieFromAWatchList(watchListID);
+            await _service.RemoveMovieFromAWatchList(watchListId);
             return Ok("Movie removed from watch list.");
         }
         catch (Exception e)
